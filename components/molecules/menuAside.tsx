@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
-import { MenuAsideItemProps } from "../../types";
-import AbastecimentoItem from "../atoms/abastecimentos";
-import CarroItem from "../atoms/carroItem";
+import AbastecimentoItem from "../atoms/aside-list/abastecimentosItem";
+import CarroItem from "../atoms/aside-list/carroItem";
 import styles from '../organisms/aside/aside.module.scss'
 
 export default function MenuAside() {

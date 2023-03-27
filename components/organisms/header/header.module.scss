@@ -1,16 +1,12 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 1rem 0;
   gap: .75rem;
   width: 100%;
 
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  .menu {
+  .buttonLogin {
     display: flex;
     gap: 1rem;
     align-items: center;

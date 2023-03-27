@@ -1,19 +1,30 @@
 import styles from '@/styles/Home.module.scss'
-import { Container, useMediaQuery } from '@mui/material';
+import { Container, Divider, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Head from 'next/head';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
 import ModalLogin from '../../components/organisms/modal-login';
 import HamburguerMenu from '../../components/icon-menu-mobile';
+import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 
 
 export default function Home() {
   const modalIsOpen = useSelector((state: any) => state.modal.isOpen);
-  const isMobile = useMediaQuery('(max-width:600px)');
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (!isMobile) {
+      dispatch(openMobileMenuReducer())
+    } 
+
+  }, [isMobile]);
+
 
   return (
     <>
@@ -25,11 +36,12 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         {isMobile && !showMobileMenu && <HamburguerMenu />}
-        {showMobileMenu && <Aside />}
+        {showMobileMenu  && <Aside />}
         <Container> 
           <Header />
+          <Divider />
+          
         </Container>
-
       </main>
       {modalIsOpen && <ModalLogin isOpen={modalIsOpen} />}
     </>

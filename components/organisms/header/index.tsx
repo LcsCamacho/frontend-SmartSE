@@ -11,7 +11,11 @@ export default function Header() {
         <Container
             maxWidth="lg"
             className={styles.header}>
-            <Box className={styles.menu}>
+            <Box className={styles.usuario}>
+                
+                <span>Seja bem vindo {'usuario'}</span>
+            </Box>
+            <Box className={styles.buttonLogin}>
                 <Button 
                     onClick={() => dispatch(toggleModalReducer())} 
                     variant="contained">

@@ -17,8 +17,11 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUserReducer: (state, action) => {
-            state.user = action.payload
+        setPasswordReducer: (state, action) => {
+            state.user.password = action.payload
+        },
+        setCpfReducer: (state, action) => {
+            state.user.cpf = action.payload
         },
         logOffReducer: (state) => {
             state.user = initialState.user
@@ -27,5 +30,5 @@ export const userSlice = createSlice({
 
 })
 
-export const { setUserReducer, logOffReducer } = userSlice.actions
+export const { setPasswordReducer, setCpfReducer, logOffReducer } = userSlice.actions
 export const userReducer = userSlice.reducer

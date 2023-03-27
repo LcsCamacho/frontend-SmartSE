@@ -8,7 +8,24 @@
     gap: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: .75rem;
+    position: relative;
     animation: Appearing .2s ease-in-out;
+
+    .close {
+        padding: .75rem;
+        font-size: 1.5rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        transition: color .2s ease-in-out;
+        color: #0c0c0c;
+
+        &:hover,
+        &:focus {
+            color: #002fff;
+        }
+    }
 
     .logo {
         display: flex;

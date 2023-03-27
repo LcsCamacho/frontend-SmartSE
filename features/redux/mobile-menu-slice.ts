@@ -12,10 +12,12 @@ export const mobileMenuSlice = createSlice({
         toggleMobileMenuReducer: (state) => {
             state.isOpen = !state.isOpen
         },
-        
+        openMobileMenuReducer: (state) => {
+            state.isOpen = true
+        }
     },
 
 })
 
-export const { toggleMobileMenuReducer } = mobileMenuSlice.actions
+export const { toggleMobileMenuReducer,openMobileMenuReducer } = mobileMenuSlice.actions
 export const mobileMenuReducer = mobileMenuSlice.reducer

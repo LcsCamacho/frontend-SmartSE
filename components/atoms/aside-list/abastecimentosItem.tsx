@@ -1,12 +1,11 @@
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import { FaGasPump } from 'react-icons/fa';
 import { Box } from '@mui/material';
-import { MenuAsideItemProps } from './carroItem';
-
+import { MenuAsideItemProps } from '../../../types';
 
 export default function AbastecimentoItem({ className }: MenuAsideItemProps) {
     return (
         <Box className={className}>
-            <LocalGasStationIcon />
+            <FaGasPump />
             <span>Abastecimentos</span>
         </Box>
     )
