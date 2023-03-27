@@ -1,10 +1,20 @@
-import styles from '@/styles/Home.module.scss';
-import { Container } from '@mui/material';
+import styles from '@/styles/Home.module.scss'
+import { Container, useMediaQuery } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Head from 'next/head';
-import Header from '../../components/container/header';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Aside from '../../components/organisms/aside';
+import Header from '../../components/organisms/header';
+import ModalLogin from '../../components/organisms/modal-login';
+import HamburguerMenu from '../../components/icon-menu-mobile';
 
 
 export default function Home() {
+  const modalIsOpen = useSelector((state: any) => state.modal.isOpen);
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
+
   return (
     <>
       <Head>
@@ -13,10 +23,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container maxWidth="lg" className={styles.main}>
-        <Header />
+      <main className={styles.main}>
+        {isMobile && !showMobileMenu && <HamburguerMenu />}
+        {showMobileMenu && <Aside />}
+        <Container> 
+          <Header />
+        </Container>
 
-      </Container>
+      </main>
+      {modalIsOpen && <ModalLogin isOpen={modalIsOpen} />}
     </>
   )
 }
