@@ -1,13 +1,12 @@
 import styles from './header.module.scss'
 import { Box, Button, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModalReducer } from '../../../features/redux/modal-slice';
-import { logOffReducer } from '../../../features/redux/user-slice';
-import { useEffect } from 'react';
+import { toggleModalLoginReducer } from '../../../features/redux/modal-slice';
+import { logOffReducer } from '../../../features/redux/login-slice';
 
 export default function Header() {
     const dispatch = useDispatch();
-    const usuario = useSelector((state: any) => state.user);
+    const usuario = useSelector((state: any) => state.login);
 
         return (
         <Container maxWidth="lg" className={styles.header}>
@@ -23,13 +22,21 @@ export default function Header() {
                         </Button>
                     </Box>
                 ) : (
+                    <>
                     <Box className={styles.buttonLogin}>
                         <Button
-                            onClick={() => dispatch(toggleModalReducer())}
+                            onClick={() => dispatch(toggleModalLoginReducer())}
                             variant="contained">
                             Entrar
                         </Button>
                     </Box>
+                    <Box className={styles.cadastrarLogin}>
+                        <Button
+                            variant="contained">
+                            Cadastrar
+                        </Button>
+                    </Box>
+                    </>
                 )
             }
 

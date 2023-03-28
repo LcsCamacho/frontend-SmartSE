@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from 'redux-persist';
+import { storage } from './storage';
 import { mobileMenuReducer } from "./mobile-menu-slice";
 import { modalReducer } from "./modal-slice";
-import { storage } from './storage';
-import { userReducer } from "./user-slice";
+import { loginReducer } from "./login-slice";
+import { cadastroReducer } from "./cadastro-slice";
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     modal: modalReducer,
     mobileMenu: mobileMenuReducer,
-    user: userReducer,
+    login: loginReducer,
+    cadastro: cadastroReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

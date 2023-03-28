@@ -9,11 +9,14 @@ import ModalLogin from '../../components/organisms/modal-login';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 import HamburguerMenu from '../../components/icon-menu-mobile';
 import { Dashboard } from '@mui/icons-material';
+import DashboardCar from '../../components/organisms/dashboard-car';
+import CadastroUsuario from '../../components/organisms/cadastro-usuario';
 
 
 export default function Home() {
   const [windowReady, setWindowReady] = useState(false);
-  const modalIsOpen = useSelector((state: any) => state.modal.isOpen);
+  const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
+  const
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
@@ -26,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
-    } 
+    }
 
   }, [windowReady, isMobile]);
 
@@ -42,13 +45,15 @@ export default function Home() {
       <main className={styles.main}>
         {isMobile && !showMobileMenu && <HamburguerMenu />}
         {showMobileMenu && <Aside />}
-        <Container> 
+
+        <Container>
           <Header />
           <Divider />
-          <DashboardCar/>
+          <DashboardCar />
+          <CadastroUsuario />
         </Container>
       </main>
-      {modalIsOpen && <ModalLogin isOpen={modalIsOpen} />}
+      {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}
     </>
   )
 }

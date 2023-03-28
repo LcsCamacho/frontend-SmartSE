@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+
+    div {
+        width: 100%;
+    }
+
+    .password {
+        position: relative;
+
+        .iconToggle {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+        }
+    }
+}
