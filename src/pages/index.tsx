@@ -1,8 +1,7 @@
 import styles from '@/styles/Home.module.scss'
 import { Container, Divider, useMediaQuery } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
@@ -17,12 +16,15 @@ export default function Home() {
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
 
+  
+
 
   useEffect(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     } 
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
 
