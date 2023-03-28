@@ -1,10 +1,10 @@
 import { FaGasPump } from 'react-icons/fa';
 import { Box } from '@mui/material';
-import { MenuAsideItemProps } from '../../../types';
+import styles from '/components/organisms/aside/aside.module.scss';
 
-export default function AbastecimentoItem({ className }: MenuAsideItemProps) {
+export default function AbastecimentoItem() {
     return (
-        <Box className={className}>
+        <Box className={styles.menuItem}>
             <FaGasPump />
             <span>Abastecimentos</span>
         </Box>

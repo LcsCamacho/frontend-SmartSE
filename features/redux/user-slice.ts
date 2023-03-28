@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 interface userState {
-    user: {
-        cpf: String,
-        password: String
-    }
+    cpf: String,
+    senha: String
+    login: boolean
 }
-const initialState: userState = {
-    user: {
-        cpf: '',
-        password: ''
-    }
+const initialState: userState= {
+    cpf: '',
+    senha: '',
+    login: false
 }
 
 export const userSlice = createSlice({
@@ -18,17 +16,24 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         setPasswordReducer: (state, action) => {
-            state.user.password = action.payload
+            state.senha = action.payload
         },
         setCpfReducer: (state, action) => {
-            state.user.cpf = action.payload
+            state.cpf = action.payload
         },
         logOffReducer: (state) => {
-            state.user = initialState.user
+            state.login = false
+            state.cpf = ''
+            state.senha = ''
+        },
+        LoginUserReducer: (state, action) => {
+            state.cpf = action.payload.cpf
+            state.senha = action.payload.senha
+            state.login = true
         }
     },
 
 })
 
-export const { setPasswordReducer, setCpfReducer, logOffReducer } = userSlice.actions
+export const { setPasswordReducer, setCpfReducer, logOffReducer, LoginUserReducer } = userSlice.actions
 export const userReducer = userSlice.reducer

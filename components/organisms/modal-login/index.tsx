@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleModalReducer } from '../../../features/redux/modal-slice';
 import styles from './modal.module.scss';
-import FormLogin from '../../molecules/formLogin';
+import FormLogin from '../../molecules/form-login';
 
 
 export default function ModalLogin({ isOpen }: { isOpen: boolean }) {

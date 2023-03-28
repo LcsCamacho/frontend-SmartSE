@@ -8,8 +8,8 @@ export default function MenuAside() {
     return (
         <Box className={styles.menu}>
             <span className={styles.title}>Listas</span>
-            <CarroItem className={styles.menuItem} />
-            <AbastecimentoItem className={styles.menuItem} />
+            <CarroItem />
+            <AbastecimentoItem  />
         </Box>
     )
 }

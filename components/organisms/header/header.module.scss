@@ -1,5 +1,5 @@
 .header {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: flex-end;
   padding: 1rem 0;
@@ -10,6 +10,15 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+  }
+
+  .usuario {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 1rem 0;
   }
 }
 
