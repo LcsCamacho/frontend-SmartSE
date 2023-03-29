@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { loginSetCpfReducer } from "../../../features/redux/login-slice";
-import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-slice";
+import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
 import { ChangeEvent } from "react";
 
 
@@ -18,9 +18,6 @@ export default function InputCPF({ type }: { type: string }) {
             return
         }
     }
-
-
-
 
     return (
         <FormControl>

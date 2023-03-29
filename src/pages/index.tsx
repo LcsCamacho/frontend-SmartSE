@@ -5,20 +5,22 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
-import ModalTemplate from '../../components/organisms/modal';
+import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 import HamburguerMenu from '../../components/icon-menu-mobile';
 import DashboardVeiculos from '../../components/dashboard-veiculos';
 import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
+import ModalCadastro from '../../components/organisms/modal-cadastro';
 
 
 export default function Home() {
-  const [listarVeiculos, setListarVeiculos] = useState(false);
-  const [listarAbastecimentos, setListarAbastecimentos] = useState(false);
+  const [dashboardVeiculos, setDashboardVeiculos] = useState(false);
+  const [dashboardAbastecimentos, setDashboardAbastecimentos] = useState(false);
   const [windowReady, setWindowReady] = useState(false);
   const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
   const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
+  const modalCadastroVeiculo = useSelector((state: any) => state.modal.modalCadastroVeiculo);
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
 
@@ -31,9 +33,7 @@ export default function Home() {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     }
-
   }, [windowReady, isMobile]);
-
 
   return (
     <>
@@ -44,22 +44,43 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+
         {isMobile && !showMobileMenu && <HamburguerMenu />}
         {showMobileMenu && <Aside />}
 
         <Container className={styles.container}>
+
           <Header />
+
           <h1 className={styles.title}>Dashboard Geral</h1>
+
           <Divider />
-          <span className={styles.listar} onClick={()=> setListarVeiculos(!listarVeiculos)}>Listar Veiculos <span>{listarVeiculos ? "-":"+"}</span></span>
-          {listarVeiculos && <DashboardVeiculos />}
+
+          <span className={styles.listar}
+            onClick={() => setDashboardVeiculos(!dashboardVeiculos)}>
+            Listar Veiculos <span>{dashboardVeiculos ? "-" : "+"}</span>
+          </span>
+
+          {dashboardVeiculos && <DashboardVeiculos />}
+
           <Divider />
-          <span className={styles.listar} onClick={()=> setListarAbastecimentos(!listarAbastecimentos)}>Listar Abastecimentos <span>{listarAbastecimentos ? "-":"+"}</span></span>
-          {listarAbastecimentos && <DashboardAbastecimentos />}
+
+          <span className={styles.listar}
+            onClick={() => setDashboardAbastecimentos(!dashboardAbastecimentos)}>
+            Listar Abastecimentos <span>{dashboardAbastecimentos ? "-" : "+"}</span>
+          </span>
+
+          {dashboardAbastecimentos && <DashboardAbastecimentos />}
+          <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo'/>
+          
         </Container>
+
       </main>
-      {modalLoginIsOpen && <ModalTemplate type="login" isOpen={modalLoginIsOpen} />}
-      {modalCadastroIsOpen && <ModalTemplate type="cadastro" isOpen={modalCadastroIsOpen} />}
+
+
+      {modalLoginIsOpen && <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />}
+      {modalCadastroIsOpen && <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />}
+
     </>
   )
 }

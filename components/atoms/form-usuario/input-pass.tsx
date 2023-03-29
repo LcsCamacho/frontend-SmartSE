@@ -1,10 +1,10 @@
 import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import styles from "/components/molecules/form/form.module.scss";
+import styles from "/components/molecules/form-usuario/form.module.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { loginSetPasswordReducer } from "../../../features/redux/login-slice";
-import { cadastroSetPasswordReducer } from "../../../features/redux/cadastro-slice";
+import { cadastroSetPasswordReducer } from "../../../features/redux/cadastro-usuario-slice";
 import { useDispatch } from "react-redux";
 
 export default function InputPassword({ type }: { type: string }) {

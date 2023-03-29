@@ -26,7 +26,8 @@ export default function DashboardAbastecimentos() {
             })
     }, [])
 
-    const columns: GridColDef[] = useMemo(() => ([
+    const columns: GridColDef[] = useMemo(
+        () => ([
         { field: 'id', headerName: 'ID', width: 50},
         { field: 'data', headerName: 'Data'},
         { field: 'valor', headerName: 'Valor'},

@@ -4,7 +4,8 @@ import { storage } from './storage';
 import { mobileMenuReducer } from "./mobile-menu-slice";
 import { modalReducer } from "./modal-slice";
 import { loginReducer } from "./login-slice";
-import { cadastroReducer } from "./cadastro-slice";
+import { cadastroReducer } from "./cadastro-usuario-slice";
+import { veiculoReducer } from './cadastro-veiculo-slice';
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     modal: modalReducer,
     mobileMenu: mobileMenuReducer,
     login: loginReducer,
-    cadastro: cadastroReducer
+    cadastro: cadastroReducer,
+    veiculo: veiculoReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

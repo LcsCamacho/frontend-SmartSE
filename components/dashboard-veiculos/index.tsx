@@ -39,7 +39,6 @@ export default function DashboardVeiculos() {
         ]), [])
 
     useEffect(() => {
-        console.log(veiculos)
         setTimeout(() => {
             setLoading(false)
         }, 2000)

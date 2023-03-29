@@ -1594,6 +1594,11 @@ ignore@^5.2.0:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.4.tgz#a291c0c6178ff1b960befe47fcdec301674a6324"
   integrity sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==
 
+imask@^6.5.0-alpha.0:
+  version "6.5.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-6.5.0-alpha.0.tgz#9ed02abf272c0e516df37879b90f6332885bf4c5"
+  integrity sha512-yv/MGZB65SC+EkYE8DPE9YWj8SfOOtoLd4G70tH5G20sj1Ek9MdeUl+KvDhuxY+y8C2vkouTCrhSYwylFsalcw==
+
 immer@^9.0.16:
   version "9.0.21"
   resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.21.tgz#1e025ea31a40f24fb064f1fef23e931496330176"
@@ -2221,15 +2226,18 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-hook-form@^7.43.8:
-  version "7.43.8"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.43.8.tgz#189fe4fb31e15c280b529cc3041249ed12108d75"
-  integrity sha512-BQm+Ge5KjTk1EchDBRhdP8Pkb7MArO2jFF+UWYr3rtvh6197khi22uloLqlWeuY02ItlCzPunPsFt1/q9wQKnw==
-
 react-icons@^4.8.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.8.0.tgz#621e900caa23b912f737e41be57f27f6b2bff445"
   integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
+
+react-imask@^6.5.0-alpha.0:
+  version "6.5.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/react-imask/-/react-imask-6.5.0-alpha.0.tgz#f924d3422c14b826e948e0f5bc24051509044683"
+  integrity sha512-LnMf7oH/0ISJ98ZzGFGrkFoLjVvPIg0Xy+W7qNgxHjNLEPPkQWYjSkQ3WBmuEty8aLunczXWHu2JEAapmkeJnQ==
+  dependencies:
+    imask "^6.5.0-alpha.0"
+    prop-types "^15.8.1"
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"

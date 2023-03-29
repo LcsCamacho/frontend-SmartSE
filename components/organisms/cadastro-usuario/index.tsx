@@ -1,5 +1,5 @@
 import { Container } from '@mui/system';
-import Form from '../../molecules/form';
+import Form from '../../molecules/form-usuario';
 
 export default function CadastroUsuario() {
 
