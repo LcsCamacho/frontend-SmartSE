@@ -5,18 +5,19 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
-import ModalLogin from '../../components/organisms/modal-login';
+import ModalTemplate from '../../components/organisms/modal';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 import HamburguerMenu from '../../components/icon-menu-mobile';
-import { Dashboard } from '@mui/icons-material';
-import DashboardCar from '../../components/organisms/dashboard-car';
-import CadastroUsuario from '../../components/organisms/cadastro-usuario';
+import DashboardVeiculos from '../../components/dashboard-veiculos';
+import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
 
 
 export default function Home() {
+  const [listarVeiculos, setListarVeiculos] = useState(false);
+  const [listarAbastecimentos, setListarAbastecimentos] = useState(false);
   const [windowReady, setWindowReady] = useState(false);
   const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
-  const
+  const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
@@ -46,14 +47,19 @@ export default function Home() {
         {isMobile && !showMobileMenu && <HamburguerMenu />}
         {showMobileMenu && <Aside />}
 
-        <Container>
+        <Container className={styles.container}>
           <Header />
+          <h1 className={styles.title}>Dashboard Geral</h1>
           <Divider />
-          <DashboardCar />
-          <CadastroUsuario />
+          <span className={styles.listar} onClick={()=> setListarVeiculos(!listarVeiculos)}>Listar Veiculos <span>{listarVeiculos ? "-":"+"}</span></span>
+          {listarVeiculos && <DashboardVeiculos />}
+          <Divider />
+          <span className={styles.listar} onClick={()=> setListarAbastecimentos(!listarAbastecimentos)}>Listar Abastecimentos <span>{listarAbastecimentos ? "-":"+"}</span></span>
+          {listarAbastecimentos && <DashboardAbastecimentos />}
         </Container>
       </main>
-      {modalLoginIsOpen && <ModalLogin isOpen={modalLoginIsOpen} />}
+      {modalLoginIsOpen && <ModalTemplate type="login" isOpen={modalLoginIsOpen} />}
+      {modalCadastroIsOpen && <ModalTemplate type="cadastro" isOpen={modalCadastroIsOpen} />}
     </>
   )
 }

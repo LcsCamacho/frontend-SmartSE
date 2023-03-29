@@ -1,7 +1,7 @@
 import styles from './header.module.scss'
 import { Box, Button, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModalLoginReducer } from '../../../features/redux/modal-slice';
+import { toggleModalLoginReducer, toggleModalCadastroReducer } from '../../../features/redux/modal-slice';
 import { logOffReducer } from '../../../features/redux/login-slice';
 
 export default function Header() {
@@ -32,6 +32,7 @@ export default function Header() {
                     </Box>
                     <Box className={styles.cadastrarLogin}>
                         <Button
+                            onClick={() => dispatch(toggleModalCadastroReducer())}
                             variant="contained">
                             Cadastrar
                         </Button>

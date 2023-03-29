@@ -11,9 +11,11 @@ export default function Aside() {
 
     return (
         <aside className={styles.aside}>
+            <Box className={styles.closeContainer}>
             {isMobile && <span onClick={() => dispatch(toggleMobileMenuReducer())}
                 className={styles.close}>X</span>
             }
+            </Box>
             <Box className={styles.logo}>
                 <Image src={logo} alt="logo"
                     width={isMobile ? 75 : 125}
