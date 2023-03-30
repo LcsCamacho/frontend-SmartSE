@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 interface userState {
-    cpf: String,
-    senha: String
+    cpf: string
+    senha: string
     login: boolean
+    token?: string
 }
 const initialState: userState = {
     cpf: '',
     senha: '',
     login: false,
+    token:''
 }
 
 export const loginSlice = createSlice({
@@ -26,8 +28,9 @@ export const loginSlice = createSlice({
             state.cpf = ''
             state.senha = ''
         },
-        LogarReducer: (state) => {
+        LogarReducer: (state, action) => {
             state.login = true
+            state.token = action.payload
         }
     },
 

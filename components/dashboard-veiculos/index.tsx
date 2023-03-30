@@ -1,31 +1,25 @@
-import { Box, Container, Skeleton, Divider } from '@mui/material'
+import { Container } from '@mui/material'
 import styles from './dashboard.module.scss'
 import { useAxios } from '../../hooks/UseAxios'
 import { useEffect, useMemo, useState } from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import LinearProgress from '@mui/material/LinearProgress';
+import { GridColDef } from '@mui/x-data-grid';
 import DataGridModel from '../data-grid-model';
+import { useSelector } from 'react-redux';
+import { Veiculo } from "../../types"
 
-interface carType {
-    id: number;
-    marca: string;
-    modelo: string;
-    ano: string;
-    cor: string;
-    placa: string;
-    renavam: string;
-}
 
 export default function DashboardVeiculos() {
-    const [veiculos, setVeiculos] = useState<carType[]>([]);
-    const [loading, setLoading] = useState(true);
+    const refetch = useSelector((state: any) => state.refetch)
+    const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
     const { api } = useAxios();
+
     useEffect(() => {
-        api.get('/veiculo/listar')
-            .then(({ data }) => {
-                setVeiculos(data)
-            })
-    }, [])
+        console.log({redux: refetch})
+        // api.get('/veiculo/listar')
+        //     .then(({ data }) => {
+        //         setVeiculos(data)
+        //     })
+    }, [refetch])
 
     const columns: GridColDef[] = useMemo(
         () => ([
@@ -37,12 +31,6 @@ export default function DashboardVeiculos() {
             { field: 'placa', headerName: 'Placa' },
             { field: 'renavam', headerName: 'Renavam' },
         ]), [])
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2000)
-    }, [veiculos])
 
 
     return (

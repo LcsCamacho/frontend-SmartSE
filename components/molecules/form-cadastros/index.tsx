@@ -1,10 +1,12 @@
-import { useAxios } from '../../../hooks/UseAxios';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormEvent, useEffect } from 'react';
+import { FormEvent } from 'react';
 import { Button } from "@mui/material";
-import styles from './form.module.scss';
 import { z } from 'zod'
+import styles from './form.module.scss';
+import { useAxios } from '../../../hooks/UseAxios';
+import { refetchReducer } from "../../../features/redux/refetch-slice"
 import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
+import { clearFormReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo, Abastecimento } from '../../../types';
 import InputPotencia from '../../atoms/form-veiculo/inputPotencia';
 import InputPlaca from '../../atoms/form-veiculo/inputPlaca';
@@ -39,9 +41,13 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
-            console.log("cadastro")
             api.post("/veiculo/inserir", veiculo)
-                .then(() => dispatch(toggleModalCadastroVeiculoReducer()))
+                .then(() => {
+                    dispatch(toggleModalCadastroVeiculoReducer())
+                    dispatch(clearFormReducer())
+                    dispatch(refetchReducer())
+
+                })
         },
         cadastroAbastecimento: (abastecimento: Abastecimento) => {
             api.post("/abastecimento/inserir", abastecimento)

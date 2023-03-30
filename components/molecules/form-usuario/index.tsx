@@ -33,8 +33,9 @@ export default function Form({ type }: { type: 'login' | 'cadastro' }) {
                 senha: senha,
                 cpf: cpf
             })
-                .then(() => {
-                    dispatch(LogarReducer());
+                .then((res) => {
+                    console.log(res)
+                    dispatch(LogarReducer(res.data));
                     dispatch(toggleModalLoginReducer());
                 })
         },

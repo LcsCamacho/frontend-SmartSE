@@ -32,9 +32,12 @@ export const veiculoSlice = createSlice({
                 potencia,
             }
         },
+        clearFormReducer: (state) => {
+            state.veiculo = initialState.veiculo
+        }
     },
 
 })
 
-export const { setVeiculoReducer } = veiculoSlice.actions
+export const { setVeiculoReducer, clearFormReducer } = veiculoSlice.actions
 export const veiculoReducer = veiculoSlice.reducer

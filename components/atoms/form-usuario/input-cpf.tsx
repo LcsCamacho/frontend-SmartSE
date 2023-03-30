@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
+import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { loginSetCpfReducer } from "../../../features/redux/login-slice";
 import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
@@ -18,7 +19,7 @@ import { IMaskInput } from "react-imask";
                 {...other}
                 ref={inputRef}
                 mask="***.***.***-**"
-                placeholder="AAA-1234"
+                placeholder="123.456.789-10"
                 definitions={{
                     '*': /[0-9]/,
                     '-': /[-]/,
@@ -30,10 +31,12 @@ import { IMaskInput } from "react-imask";
     };
     
 export default function InputCPF({ type }: { type: string }) {
+    const [cpfState, setCpfState] = useState('')
     const dispatch = useDispatch();
 
     const setCpf = (event: ChangeEvent<HTMLInputElement>) => {
         if (type === "login") {
+            setCpfState(event.target.value)
             dispatch(loginSetCpfReducer(event.target.value));
             return
         }
@@ -48,9 +51,8 @@ export default function InputCPF({ type }: { type: string }) {
             <InputLabel>Cpf</InputLabel>
             <Input 
                 inputComponent={MaskInput}
-                required 
-                onChange={setCpf} />
-            <FormHelperText>123.456.789-00</FormHelperText>
+                onChange={setCpf} 
+                value={cpfState}/>
         </FormControl>
     )
 }
