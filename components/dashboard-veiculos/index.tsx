@@ -8,34 +8,41 @@ import { useSelector } from 'react-redux';
 import { Veiculo } from "../../types"
 
 
+
 export default function DashboardVeiculos() {
-    const refetch = useSelector((state: any) => state.refetch)
+    const { emitInsertVeiculo }: { emitInsertVeiculo: boolean } = useSelector((state: any) => state.refetch)
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
     const { api } = useAxios();
 
-    useEffect(() => {
-        console.log({redux: refetch})
+    const fetch = () => {
         api.get('/veiculo/listar')
             .then(({ data }) => {
                 setVeiculos(data)
             })
-    }, [refetch])
+    }
+    useMemo(() => {
+        fetch()
+    }, [emitInsertVeiculo])
 
     const columns: GridColDef[] = useMemo(
         () => ([
             { field: 'id', headerName: 'ID', width: 50 },
-            { field: 'marca', headerName: 'Marca' },
-            { field: 'modelo', headerName: 'Modelo' },
-            { field: 'ano', headerName: 'Ano' },
-            { field: 'cor', headerName: 'Cor' },
-            { field: 'placa', headerName: 'Placa' },
-            { field: 'renavam', headerName: 'Renavam' },
+            { field: 'marca', headerName: 'Marca', editable: true },
+            { field: 'modelo', headerName: 'Modelo', editable: true },
+            { field: 'ano', headerName: 'Ano', editable: true },
+            { field: 'cor', headerName: 'Cor', editable: true },
+            { field: 'placa', headerName: 'Placa', editable: true },
+            { field: 'renavam', headerName: 'Renavam', editable: true },
         ]), [])
+
+    const filter = () => {
+        
+    }
 
 
     return (
         <Container className={styles.containerVeiculos}>
-            <DataGridModel rows={veiculos} columns={columns} />
+            <DataGridModel editModel="row" rows={veiculos} columns={columns} />
         </Container>
     )
 }
