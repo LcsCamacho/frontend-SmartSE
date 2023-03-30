@@ -24,7 +24,7 @@ export default function InputPotencia() {
     
 
     return (
-        <FormControl >
+        <>
             <TextField
                 InputProps={{
                     startAdornment: <InputAdornment position="start">CV</InputAdornment>,
@@ -36,6 +36,6 @@ export default function InputPotencia() {
                 onChange={setPotencia}
             />
             <FormHelperText>Informe a potência do veículo</FormHelperText>
-        </FormControl>
+        </>
     )
 }

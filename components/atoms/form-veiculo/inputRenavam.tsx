@@ -23,7 +23,7 @@ export default function InputRenavam() {
     }
 
     return (
-        <FormControl >
+        <>
             <TextField
                 id="Renavam"
                 label="Renavam"
@@ -32,6 +32,6 @@ export default function InputRenavam() {
                 onChange={setRenavam}
             />
             <FormHelperText>Informe o renavam do veiculo</FormHelperText>
-        </FormControl>
+        </>
     )
 }

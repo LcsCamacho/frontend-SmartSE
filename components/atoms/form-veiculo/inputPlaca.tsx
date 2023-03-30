@@ -48,13 +48,13 @@ export default function InputPlaca() {
     }
 
     return (
-        <FormControl>
+        <>
             <InputLabel htmlFor="placa">Placa</InputLabel>
             <Input
                 onChange={setPlaca}
                 value={veiculo.placa}
                 inputComponent={MaskInput} />
             <FormHelperText>Informe a Placa do carro</FormHelperText>
-        </FormControl>
+        </>
     )
 }

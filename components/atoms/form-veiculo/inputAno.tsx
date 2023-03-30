@@ -23,7 +23,7 @@ export default function InputAno() {
     }
 
     return (
-        <FormControl >
+        <>
             <TextField
                 id="Ano"
                 label="Ano"
@@ -31,6 +31,6 @@ export default function InputAno() {
                 onChange={setAno}
             />
             <FormHelperText>Informe o ano do veiculo</FormHelperText>
-        </FormControl>
+        </>
     )
 }

@@ -23,7 +23,7 @@ export default function InputCor() {
     }
 
     return (
-        <FormControl >
+        <>
             <TextField
                 id="Cor"
                 label="Cor"
@@ -31,6 +31,6 @@ export default function InputCor() {
                 onChange={setCor}
             />
             <FormHelperText>Informe a cor do veiculo</FormHelperText>
-        </FormControl>
+        </>
     )
 }
