@@ -30,9 +30,6 @@ export default function InputPassword({ type }: { type: string }) {
         <FormControl className={styles.password}>
             <InputLabel>Senha</InputLabel>
             <Input  required type={typePassword} onChange={setPassword} />
-            <span className={styles.iconToggle} onClick={handleToggleShowPassword}>
-                {typePassword === 'password' ? <VisibilityIcon /> : <VisibilityOffIcon />}
-            </span>
             <FormHelperText>Mínimo 6 caracteres</FormHelperText>
         </FormControl>
     )

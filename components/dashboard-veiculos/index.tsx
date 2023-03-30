@@ -4,7 +4,7 @@ import { useAxios } from '../../hooks/UseAxios'
 import { useEffect, useMemo, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import LinearProgress from '@mui/material/LinearProgress';
-import DataGridModel from '../dataGridModel';
+import DataGridModel from '../data-grid-model';
 
 interface carType {
     id: number;

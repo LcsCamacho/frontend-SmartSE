@@ -33,12 +33,13 @@ const schema = z.object({
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
     const { api } = useAxios();
     const dispatch = useDispatch();
-    const {veiculo} = useSelector((state: any) => state.veiculo);
+    const { veiculo } = useSelector((state: any) => state.veiculo);
 
-   
+
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
+            console.log("cadastro")
             api.post("/veiculo/inserir", veiculo)
                 .then(() => dispatch(toggleModalCadastroVeiculoReducer()))
         },
@@ -50,26 +51,31 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(veiculo)
-        // const result = schema.safeParse(veiculo)
+        const result = schema.safeParse(veiculo)
 
-        // //se o schema for valido, faz a requisição
-        // if (result.success) {
-        //     actions[type](veiculo)
-        // }
-        // console.log(result)
-        
+        //se o schema for valido, faz a requisição
+        if (result.success) {
+            console.log("success")
+            actions[type](veiculo)
+        }
+        console.log(result)
 
     }
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            <InputPotencia />
-            <InputPlaca />
-            <InputCor />
-            <InputRenavam />
-            <InputModelo />
-            <InputMarca />
-            <InputAno />
+            {type === "cadastroVeiculo" && (
+                <>
+                    <InputPotencia />
+                    <InputPlaca />
+                    <InputCor />
+                    <InputRenavam />
+                    <InputModelo />
+                    <InputMarca />
+                    <InputAno />
+                </>
+            )}
+
             <Button
                 type="submit"
                 variant="contained"

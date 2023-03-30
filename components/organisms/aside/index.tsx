@@ -2,7 +2,7 @@ import styles from './aside.module.scss'
 import { Box, useMediaQuery, Divider } from '@mui/material';
 import Image from 'next/image';
 import logo from '/public/logo.png';
-import MenuAside from '../../molecules/menu-aside';
+import MenuAside from '../../molecules/aside/menu-aside';
 import { toggleMobileMenuReducer } from '../../../features/redux/mobile-menu-slice';
 import { useDispatch } from 'react-redux';
 export default function Aside() {

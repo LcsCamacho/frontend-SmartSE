@@ -4,7 +4,7 @@ import styles from './dashboard.module.scss'
 import { useAxios } from '../../hooks/UseAxios'
 import { useEffect, useMemo, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import DataGridModel from '../dataGridModel';
+import DataGridModel from '../data-grid-model';
 
 interface AbastecimentoType {
     id: number,
@@ -28,13 +28,13 @@ export default function DashboardAbastecimentos() {
 
     const columns: GridColDef[] = useMemo(
         () => ([
-        { field: 'id', headerName: 'ID', width: 50},
-        { field: 'data', headerName: 'Data'},
-        { field: 'valor', headerName: 'Valor'},
-        { field: 'litros', headerName: 'Litros'},
-        { field: 'tipo', headerName: 'Tipo'},
-        { field: 'placa', headerName: 'Placa'},
-    ]),[]);
+            { field: 'id', headerName: 'ID', width: 50 },
+            { field: 'data', headerName: 'Data' },
+            { field: 'valor', headerName: 'Valor' },
+            { field: 'litros', headerName: 'Litros' },
+            { field: 'tipo', headerName: 'Tipo' },
+            { field: 'placa', headerName: 'Placa' },
+        ]), []);
 
     return (
         <Container className={styles.containerAbastecimentos}>
