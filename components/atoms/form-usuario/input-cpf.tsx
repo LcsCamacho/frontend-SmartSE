@@ -17,12 +17,11 @@ const MaskInput = (props: any) => {
         <IMaskInput
             {...other}
             ref={inputRef}
-            mask="###-*x**"
-            placeholder="AAA-1234"
+            mask="***.***.***-**"
+            placeholder="123.456.789-10"
             definitions={{
-                '#': /[a-zA-Z]/,
                 '*': /[0-9]/,
-                'x': /[a-zA-Z0-9]/,
+                '.': /[.]/,
                 '-': /[-]/,
             }}
             overwrite

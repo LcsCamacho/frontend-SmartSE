@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { z } from 'zod'
 import styles from './form.module.scss';
 import { useAxios } from '../../../hooks/UseAxios';
-import { emitReducer } from "../../../features/redux/refetch-slice"
+import { emitInsertVeiculoReducer } from "../../../features/redux/refetch-slice"
 import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
 import { clearFormReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo, Abastecimento } from '../../../types';
@@ -16,12 +16,16 @@ import InputModelo from '../../atoms/form-veiculo/inputModelo';
 import InputMarca from '../../atoms/form-veiculo/inputMarca';
 import InputAno from '../../atoms/form-veiculo/inputAno';
 
+//interface com as funções de cada tipo de formulario
 interface formType {
     cadastroVeiculo: (veiculo: Veiculo) => void,
     cadastroAbastecimento: (abastecimento: Abastecimento) => void
 }
+
+//regex: abc-1234 ou abc-1a34
 const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
 
+//validar informaçoes obtidas dos inputs
 const schema = z.object({
     placa: z.string().regex(PlacaRegex),
     renavam: z.string().length(11),
@@ -49,20 +53,22 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
             })
                 .then(() => {
                     dispatch(toggleModalCadastroVeiculoReducer())
-                    dispatch(clearFormReducer())
-                    dispatch(emitReducer())
-
+                    // dispatch(clearFormReducer())
+                    dispatch(emitInsertVeiculoReducer())
+                })
+                .catch((err) => {
+                    let erro = err.response.status === 401 ? "Faça login para inserir um veiculo" : "Erro interno, Tente novamente"
+                    alert(erro)
                 })
         },
         cadastroAbastecimento: (abastecimento: Abastecimento) => {
             api.post("/abastecimento/inserir", abastecimento)
         }
     }
-
+    
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const result = schema.safeParse(veiculo)
-
         //se o schema for valido, faz a requisição
         if (result.success) {
             actions[type](veiculo)
