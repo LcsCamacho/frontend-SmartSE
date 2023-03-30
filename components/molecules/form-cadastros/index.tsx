@@ -8,6 +8,11 @@ import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal
 import { Veiculo, Abastecimento } from '../../../types';
 import InputPotencia from '../../atoms/form-veiculo/inputPotencia';
 import InputPlaca from '../../atoms/form-veiculo/inputPlaca';
+import InputCor from '../../atoms/form-veiculo/inputCor';
+import InputRenavam from '../../atoms/form-veiculo/inputRenavam';
+import InputModelo from '../../atoms/form-veiculo/inputModelo';
+import InputMarca from '../../atoms/form-veiculo/inputMarca';
+import InputAno from '../../atoms/form-veiculo/inputAno';
 
 interface formType {
     cadastroVeiculo: (veiculo: Veiculo) => void,
@@ -28,12 +33,9 @@ const schema = z.object({
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
     const { api } = useAxios();
     const dispatch = useDispatch();
-    const veiculo = useSelector((state: any) => state.veiculo);
+    const {veiculo} = useSelector((state: any) => state.veiculo);
 
-    useEffect(() => {
-        console.log(veiculo)
-    }, [veiculo])
-
+   
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
@@ -45,15 +47,16 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
         }
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const result = schema.safeParse(veiculo)
+        console.log(veiculo)
+        // const result = schema.safeParse(veiculo)
 
-        //se o schema for valido, faz a requisição
-        if (result.success) {
-            actions[type](veiculo)
-        }
-        console.log(result)
+        // //se o schema for valido, faz a requisição
+        // if (result.success) {
+        //     actions[type](veiculo)
+        // }
+        // console.log(result)
         
 
     }
@@ -62,10 +65,16 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
         <form onSubmit={handleSubmit} className={styles.form}>
             <InputPotencia />
             <InputPlaca />
+            <InputCor />
+            <InputRenavam />
+            <InputModelo />
+            <InputMarca />
+            <InputAno />
             <Button
                 type="submit"
                 variant="contained"
                 color="primary">
+                Inserir
             </Button>
         </form>
     )

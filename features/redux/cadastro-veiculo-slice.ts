@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { Veiculo } from "../../types"
 
-
-const initialState: Veiculo = {
-    ano: '',
-    marca: '',
-    modelo: '',
-    placa: '',
-    cor: '',
-    renavam: '',
-    potencia: '',
+interface initialStateType {
+    veiculo: Veiculo
+}
+const initialState: initialStateType = {
+    veiculo: {
+        ano: '',
+        marca: '',
+        modelo: '',
+        placa: '',
+        cor: '',
+        renavam: '',
+        potencia: '',
+    }
 }
 
 export const veiculoSlice = createSlice({
@@ -17,9 +21,16 @@ export const veiculoSlice = createSlice({
     initialState,
     reducers: {
         setVeiculoReducer: (state, action) => {
-            console.log(action.payload)
-            state = action.payload
-            console.log(state)
+            const { ano, marca, modelo, placa, cor, renavam, potencia } = action.payload
+            state.veiculo = {
+                ano,
+                marca,
+                modelo,
+                placa,
+                cor,
+                renavam,
+                potencia,
+            }
         },
     },
 

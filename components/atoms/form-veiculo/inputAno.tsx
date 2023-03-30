@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 
 
-export default function InputMarca() {
+export default function InputAno() {
     const dispatch = useDispatch();
     const {veiculo} = useSelector((state: any) => state.veiculo);    
-    const {ano, modelo, renavam, cor, potencia, placa} = veiculo
+    const { marca, renavam, cor, potencia, placa, modelo } = veiculo
 
-    const setMarca = (e: ChangeEvent<HTMLInputElement>) => {
+    const setAno = (e: ChangeEvent<HTMLInputElement>) => {
         let data = {
-            ano,
-            marca: e.target.value,
-            modelo,
+            ano: e.target.value,
+            marca,
             cor,
+            modelo,
             renavam,
             potencia,
             placa,
@@ -25,12 +25,12 @@ export default function InputMarca() {
     return (
         <FormControl >
             <TextField
-                id="marca"
-                label="Marca"
+                id="Ano"
+                label="Ano"
                 variant="standard"
-                onChange={setMarca}
+                onChange={setAno}
             />
-            <FormHelperText>Informe a marca do veiculo</FormHelperText>
+            <FormHelperText>Informe o ano do veiculo</FormHelperText>
         </FormControl>
     )
 }
