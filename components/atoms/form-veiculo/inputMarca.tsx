@@ -23,7 +23,7 @@ export default function InputMarca() {
     }
 
     return (
-        <>
+        <FormControl>
             <TextField
                 id="marca"
                 label="Marca"
@@ -31,6 +31,6 @@ export default function InputMarca() {
                 onChange={setMarca}
             />
             <FormHelperText>Informe a marca do veiculo</FormHelperText>
-        </>
+        </FormControl>
     )
 }

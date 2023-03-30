@@ -23,7 +23,7 @@ export default function InputModelo() {
     }
 
     return (
-        <>
+        <FormControl>
             <TextField
                 id="Modelo"
                 label="Modelo"
@@ -31,6 +31,6 @@ export default function InputModelo() {
                 onChange={setModelo}
             />
             <FormHelperText>Informe o modelo do veiculo</FormHelperText>
-        </>
+        </FormControl>
     )
 }

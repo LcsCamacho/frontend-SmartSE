@@ -15,10 +15,10 @@ export default function DashboardVeiculos() {
 
     useEffect(() => {
         console.log({redux: refetch})
-        // api.get('/veiculo/listar')
-        //     .then(({ data }) => {
-        //         setVeiculos(data)
-        //     })
+        api.get('/veiculo/listar')
+            .then(({ data }) => {
+                setVeiculos(data)
+            })
     }, [refetch])
 
     const columns: GridColDef[] = useMemo(

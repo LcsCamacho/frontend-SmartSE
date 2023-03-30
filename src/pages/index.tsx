@@ -71,15 +71,14 @@ export default function Home() {
           </span>
 
           {dashboardAbastecimentos && <DashboardAbastecimentos />}
-          <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo'/>
           
         </Container>
 
       </main>
 
-
-      {modalLoginIsOpen && <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />}
-      {modalCadastroIsOpen && <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />}
+      <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />
+      <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />
+      <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo'/>
 
     </>
   )

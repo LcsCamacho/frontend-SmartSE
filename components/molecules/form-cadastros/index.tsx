@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { z } from 'zod'
 import styles from './form.module.scss';
 import { useAxios } from '../../../hooks/UseAxios';
-import { refetchReducer } from "../../../features/redux/refetch-slice"
+import { emitReducer } from "../../../features/redux/refetch-slice"
 import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
 import { clearFormReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo, Abastecimento } from '../../../types';
@@ -33,6 +33,7 @@ const schema = z.object({
 })
 
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
+    const user = useSelector((state: any) => state.login);
     const { api } = useAxios();
     const dispatch = useDispatch();
     const { veiculo } = useSelector((state: any) => state.veiculo);
@@ -41,11 +42,15 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
-            api.post("/veiculo/inserir", veiculo)
+            api.post("/veiculo/inserir", veiculo, {
+                headers: {
+                    authorization: user.token
+                }
+            })
                 .then(() => {
                     dispatch(toggleModalCadastroVeiculoReducer())
                     dispatch(clearFormReducer())
-                    dispatch(refetchReducer())
+                    dispatch(emitReducer())
 
                 })
         },
@@ -56,16 +61,12 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(veiculo)
         const result = schema.safeParse(veiculo)
 
         //se o schema for valido, faz a requisição
         if (result.success) {
-            console.log("success")
             actions[type](veiculo)
         }
-        console.log(result)
-
     }
 
     return (

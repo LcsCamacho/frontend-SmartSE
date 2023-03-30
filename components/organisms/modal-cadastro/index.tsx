@@ -10,12 +10,9 @@ export default function ModalCadastro({ isOpen, type }: { isOpen: boolean, type:
     const dispatch = useDispatch();
 
     const handleClose = () => {
-        console.log({ tipo: type })
-
         if (type === 'cadastroVeiculo') {
             dispatch(toggleModalCadastroVeiculoReducer())
         }
-
     };
 
 

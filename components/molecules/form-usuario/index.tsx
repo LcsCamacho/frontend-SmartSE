@@ -34,8 +34,7 @@ export default function Form({ type }: { type: 'login' | 'cadastro' }) {
                 cpf: cpf
             })
                 .then((res) => {
-                    console.log(res)
-                    dispatch(LogarReducer(res.data));
+                    dispatch(LogarReducer(res.data.token));
                     dispatch(toggleModalLoginReducer());
                 })
         },
