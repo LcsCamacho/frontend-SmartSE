@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    emitInsertVeiculo: false,
-    emitInsertAbastecimento: false
+    emitRefetchVeiculo: false,
+    emitRefetchAbastecimento: false
 }
 
 export const refetchSlice = createSlice({
     name: 'refetch',
     initialState,
     reducers: {
-        emitInsertVeiculoReducer: (state) => {
-            state.emitInsertVeiculo = !state.emitInsertVeiculo
+        emitRefetchVeiculoReducer: (state) => {
+            state.emitRefetchVeiculo = !state.emitRefetchVeiculo
         },
     },
 })
 
-export const { emitInsertVeiculoReducer } = refetchSlice.actions
+export const { emitRefetchVeiculoReducer } = refetchSlice.actions
 export const refetchReducer = refetchSlice.reducer

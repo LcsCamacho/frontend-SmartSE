@@ -22,6 +22,21 @@ import { useAxios } from '../../hooks/UseAxios';
 import styles from './datagrid.module.scss';
 import { Veiculo } from '../../types';
 import { z } from 'zod'
+import { useDispatch } from 'react-redux';
+import { emitRefetchVeiculoReducer } from '../../features/redux/refetch-slice';
+
+
+const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
+
+const veiculoSchema = z.object({
+    placa: z.string().regex(PlacaRegex),
+    renavam: z.string().length(11),
+    cor: z.string().max(12),
+    potencia: z.string(),
+    modelo: z.string(),
+    marca: z.string(),
+    ano: z.string().max(4),
+})
 
 interface dataGridProps {
     columns: Array<GridColDef>,
@@ -60,6 +75,7 @@ export default function DataGridModel(props: dataGridProps) {
     const { columns, rows } = props;
     const { api } = useAxios();
     const { token } = useSelector((state: any) => state.login);
+    const dispatch = useDispatch();
 
     const handleEditClick = (id: GridRowId) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
@@ -70,6 +86,11 @@ export default function DataGridModel(props: dataGridProps) {
     };
 
     const handleDeleteClick = (id: GridRowId) => () => {
+        api.delete(`/veiculo/deletar/${id}`,{
+            headers:{
+                authorization: token
+            }
+        })
         setRowsState(rows.filter((row) => row.id !== id));
     };
 
@@ -78,7 +99,6 @@ export default function DataGridModel(props: dataGridProps) {
             ...rowModesModel,
             [id]: { mode: GridRowModes.View, ignoreModifications: true },
         });
-
         const editedRow = rows.find((row) => row.id === id);
         if (editedRow!.isNew) {
             setRowsState(rows.filter((row) => row.id !== id));
@@ -86,14 +106,22 @@ export default function DataGridModel(props: dataGridProps) {
     };
 
     const processRowUpdate = (newRow: GridRowModel<Veiculo>) => {
-        console.log(newRow)
+        const result = veiculoSchema.safeParse(newRow)
         const updatedRow = { ...newRow, isNew: false };
-        setRowsState(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        api.put(`/veiculo/atualizar/${newRow.id}`, newRow, {
-            headers: {
-                authorization: token
-            }
-        })
+        if (result.success) {
+            dispatch(emitRefetchVeiculoReducer())
+            setRowsState(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+            api.put(`/veiculo/atualizar/${newRow.id}`, newRow, {
+                headers: {
+                    authorization: token
+                }
+            })
+        }
+        else {
+            alert("Digite os dados corretamente")
+            dispatch(emitRefetchVeiculoReducer())
+            setRowsState(rows.map((row) => row));
+        }
         return updatedRow;
     };
 

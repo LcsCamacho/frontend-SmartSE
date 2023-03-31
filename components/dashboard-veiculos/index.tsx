@@ -10,19 +10,18 @@ import styles from './dashboard.module.scss';
 
 
 export default function DashboardVeiculos() {
-    const { emitInsertVeiculo }: { emitInsertVeiculo: boolean } = useSelector((state: any) => state.refetch)
+    const { emitRefetchVeiculo }: { emitRefetchVeiculo: boolean } = useSelector((state: any) => state.refetch)
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
     const { api } = useAxios();
 
-    const fetch = () => {
+
+    useMemo(() => {
+        console.log("emitRefetchVeiculo", emitRefetchVeiculo)
         api.get('/veiculo/listar')
             .then(({ data }) => {
                 setVeiculos(data)
             })
-    }
-    useMemo(() => {
-        fetch()
-    }, [emitInsertVeiculo])
+    }, [emitRefetchVeiculo])
 
     const columns: GridColDef[] = useMemo(
         () => ([
