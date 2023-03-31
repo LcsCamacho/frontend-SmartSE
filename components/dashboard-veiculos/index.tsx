@@ -1,11 +1,11 @@
-import { Container } from '@mui/material'
-import styles from './dashboard.module.scss'
-import { useAxios } from '../../hooks/UseAxios'
-import { useEffect, useMemo, useState } from 'react';
+import { Container } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import DataGridModel from '../data-grid-model';
+import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Veiculo } from "../../types"
+import { useAxios } from '../../hooks/UseAxios';
+import { Veiculo } from "../../types";
+import DataGridModel from '../data-grid-model';
+import styles from './dashboard.module.scss';
 
 
 
@@ -34,10 +34,6 @@ export default function DashboardVeiculos() {
             { field: 'placa', headerName: 'Placa', editable: true },
             { field: 'renavam', headerName: 'Renavam', editable: true },
         ]), [])
-
-    const filter = () => {
-        
-    }
 
 
     return (
