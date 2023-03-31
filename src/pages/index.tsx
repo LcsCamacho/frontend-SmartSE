@@ -1,22 +1,21 @@
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/Home.module.scss';
 import { Container, Divider, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
+import DashboardVeiculos from '../../components/dashboard-veiculos';
+import HamburguerMenu from '../../components/icon-menu-mobile';
 import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
+import ModalCadastro from '../../components/organisms/modal-cadastro';
 import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
-import HamburguerMenu from '../../components/icon-menu-mobile';
-import DashboardVeiculos from '../../components/dashboard-veiculos';
-import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
-import ModalCadastro from '../../components/organisms/modal-cadastro';
 
 
 export default function Home() {
   const [dashboardVeiculos, setDashboardVeiculos] = useState(false);
   const [dashboardAbastecimentos, setDashboardAbastecimentos] = useState(false);
-  const [windowReady, setWindowReady] = useState(false);
   const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
   const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
@@ -24,16 +23,12 @@ export default function Home() {
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setWindowReady(true)
-  }, [])
 
-
-  useEffect(() => {
+  useMemo(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     }
-  }, [windowReady, isMobile]);
+  }, [isMobile, dispatch]);
 
   return (
     <>
@@ -49,7 +44,6 @@ export default function Home() {
         {showMobileMenu && <Aside />}
 
         <Container className={styles.container}>
-
           <Header />
 
           <h1 className={styles.title}>Dashboard Geral</h1>
@@ -71,14 +65,13 @@ export default function Home() {
           </span>
 
           {dashboardAbastecimentos && <DashboardAbastecimentos />}
-          
         </Container>
 
       </main>
 
       <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />
       <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />
-      <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo'/>
+      <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo' />
 
     </>
   )

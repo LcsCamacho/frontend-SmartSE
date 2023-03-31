@@ -5,7 +5,7 @@ export default function CadastroUsuario() {
 
     return (
         <Container>
-            <Form type='cadastro'/> 
+            <Form type='cadastro' />
         </Container>
     )
 }

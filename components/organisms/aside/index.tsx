@@ -1,10 +1,10 @@
-import styles from './aside.module.scss'
-import { Box, useMediaQuery, Divider } from '@mui/material';
+import { Box, Divider, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import logo from '/public/logo.png';
-import MenuAside from '../../molecules/aside/menu-aside';
-import { toggleMobileMenuReducer } from '../../../features/redux/mobile-menu-slice';
 import { useDispatch } from 'react-redux';
+import { toggleMobileMenuReducer } from '../../../features/redux/mobile-menu-slice';
+import MenuAside from '../../molecules/aside/menu-aside';
+import styles from './aside.module.scss';
+import logo from '/public/logo.png';
 export default function Aside() {
     const isMobile = useMediaQuery('(max-width:600px)');
     const dispatch = useDispatch();

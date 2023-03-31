@@ -7,8 +7,6 @@ import { Veiculo } from "../../types";
 import DataGridModel from '../data-grid-model';
 import styles from './dashboard.module.scss';
 
-
-
 export default function DashboardVeiculos() {
     const { emitRefetchVeiculo }: { emitRefetchVeiculo: boolean } = useSelector((state: any) => state.refetch)
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
@@ -16,11 +14,11 @@ export default function DashboardVeiculos() {
 
 
     useMemo(() => {
-        console.log("emitRefetchVeiculo", emitRefetchVeiculo)
         api.get('/veiculo/listar')
             .then(({ data }) => {
                 setVeiculos(data)
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emitRefetchVeiculo])
 
     const columns: GridColDef[] = useMemo(

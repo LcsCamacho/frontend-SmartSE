@@ -8,11 +8,11 @@ export default function HamburguerMenu() {
     const dispatch = useDispatch();
 
     return (
-        <MenuIcon 
+        <MenuIcon
             fontSize="large"
             className={styles.hamburguer}
             onClick={() => {
                 dispatch(toggleMobileMenuReducer())
-        }} />
+            }} />
     );
 }

@@ -1,13 +1,13 @@
-import { Button} from "@mui/material";
-import styles from './form.module.scss';
-import InputPassword from "../../atoms/form-usuario/input-pass";
-import { useDispatch, useSelector } from 'react-redux';
-import { useAxios } from "../../../hooks/UseAxios";
-import { LogarReducer } from "../../../features/redux/login-slice";
+import { Button } from "@mui/material";
 import { FormEvent } from 'react';
-import { z } from 'zod'
+import { useDispatch, useSelector } from 'react-redux';
+import { z } from 'zod';
+import { LogarReducer } from "../../../features/redux/login-slice";
+import { toggleModalCadastroReducer, toggleModalLoginReducer } from "../../../features/redux/modal-slice";
+import { useAxios } from "../../../hooks/UseAxios";
 import InputCPF from "../../atoms/form-usuario/input-cpf";
-import { toggleModalLoginReducer, toggleModalCadastroReducer } from "../../../features/redux/modal-slice";
+import InputPassword from "../../atoms/form-usuario/input-pass";
+import styles from './form.module.scss';
 
 const regexCPF = new RegExp("[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}")
 

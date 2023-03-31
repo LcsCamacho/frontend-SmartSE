@@ -24,7 +24,7 @@
             cursor: pointer;
             transition: color .2s ease-in-out;
             color: #0c0c0c;
-    
+
             &:hover,
             &:focus {
                 color: #002fff;
@@ -75,6 +75,7 @@
         opacity: 0;
         transform: translateX(-100%);
     }
+
     100% {
         opacity: 1;
         transform: translateX(0);

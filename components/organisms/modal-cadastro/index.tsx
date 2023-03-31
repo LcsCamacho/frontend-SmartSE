@@ -2,12 +2,12 @@ import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModalCadastroVeiculoReducer } from '../../../features/redux/modal-slice';
-import styles from './modal.module.scss';
 import FormCadastros from '../../molecules/form-cadastros';
+import styles from './modal.module.scss';
 
 export default function ModalCadastro({ isOpen, type }: { isOpen: boolean, type: "cadastroVeiculo" | "cadastroAbastecimento" }) {
     const dispatch = useDispatch();
-    const {login} = useSelector((state:any) => state.login)
+    const { login } = useSelector((state: any) => state.login)
 
     const handleClose = () => {
         if (type === 'cadastroVeiculo') {
@@ -16,7 +16,7 @@ export default function ModalCadastro({ isOpen, type }: { isOpen: boolean, type:
     };
 
 
-/* Cadastro de veículos - CRUD -  com descrição do veículo (placa, renavam, cor, potência, modelo, marca etc); */
+    /* Cadastro de veículos - CRUD -  com descrição do veículo (placa, renavam, cor, potência, modelo, marca etc); */
 
     return (
         <Modal

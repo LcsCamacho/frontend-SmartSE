@@ -1,10 +1,9 @@
-import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { loginSetCpfReducer } from "../../../features/redux/login-slice";
-import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
+import { FormControl, Input, InputLabel } from "@mui/material";
 import { ChangeEvent } from "react";
 import { IMaskInput } from "react-imask";
+import { useDispatch, useSelector } from "react-redux";
+import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
+import { loginSetCpfReducer } from "../../../features/redux/login-slice";
 
 // definitions é responsavel por o mask aceitar apenas o formato da placa
 // # = aceita letras

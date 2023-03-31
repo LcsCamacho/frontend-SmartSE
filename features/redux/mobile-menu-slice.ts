@@ -19,5 +19,5 @@ export const mobileMenuSlice = createSlice({
 
 })
 
-export const { toggleMobileMenuReducer,openMobileMenuReducer } = mobileMenuSlice.actions
+export const { toggleMobileMenuReducer, openMobileMenuReducer } = mobileMenuSlice.actions
 export const mobileMenuReducer = mobileMenuSlice.reducer

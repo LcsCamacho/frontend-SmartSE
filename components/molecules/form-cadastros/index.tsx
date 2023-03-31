@@ -1,20 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { FormEvent } from 'react';
 import { Button } from "@mui/material";
-import { z } from 'zod'
-import styles from './form.module.scss';
-import { useAxios } from '../../../hooks/UseAxios';
-import { emitRefetchVeiculoReducer } from "../../../features/redux/refetch-slice"
-import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
+import { FormEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { z } from 'zod';
 import { clearFormReducer } from "../../../features/redux/cadastro-veiculo-slice";
-import { Veiculo, Abastecimento } from '../../../types';
-import InputPotencia from '../../atoms/form-veiculo/inputPotencia';
-import InputPlaca from '../../atoms/form-veiculo/inputPlaca';
-import InputCor from '../../atoms/form-veiculo/inputCor';
-import InputRenavam from '../../atoms/form-veiculo/inputRenavam';
-import InputModelo from '../../atoms/form-veiculo/inputModelo';
-import InputMarca from '../../atoms/form-veiculo/inputMarca';
-import InputAno from '../../atoms/form-veiculo/inputAno';
+import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
+import { emitRefetchVeiculoReducer } from "../../../features/redux/refetch-slice";
+import { useAxios } from '../../../hooks/UseAxios';
+import { Abastecimento, Veiculo } from '../../../types';
+import InputAno from '../../atoms/form-veiculo/input-ano';
+import InputCor from '../../atoms/form-veiculo/input-cor';
+import InputMarca from '../../atoms/form-veiculo/input-marca';
+import InputModelo from '../../atoms/form-veiculo/input-modelo';
+import InputPlaca from '../../atoms/form-veiculo/input-placa';
+import InputPotencia from '../../atoms/form-veiculo/input-potencia';
+import InputRenavam from '../../atoms/form-veiculo/input-renavam';
+import styles from './form.module.scss';
 
 //interface com as funções de cada tipo de formulario
 interface formType {
@@ -64,20 +64,20 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
             api.post("/abastecimento/inserir", abastecimento)
         }
     }
-    
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(type === "cadastroVeiculo") {
+        if (type === "cadastroVeiculo") {
             //se o schema for valido, executa a 
             //funçao do tipo de formulario correspondente
-            schema.safeParse(veiculo).success? 
-            actions[type](veiculo) : 
-            alert("Dados inválidos")
+            schema.safeParse(veiculo).success ?
+                actions[type](veiculo) :
+                alert("Dados inválidos")
         }
         // else {
         //     const result = schema.safeParse(abastecimento)
         // }
-        
+
 
     }
 

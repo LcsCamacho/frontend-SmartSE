@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,14 +18,12 @@ import {
     MuiEvent
 } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useAxios } from '../../hooks/UseAxios';
-import styles from './datagrid.module.scss';
-import { Veiculo } from '../../types';
-import { z } from 'zod'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { z } from 'zod';
 import { emitRefetchVeiculoReducer } from '../../features/redux/refetch-slice';
-
+import { useAxios } from '../../hooks/UseAxios';
+import { Veiculo } from '../../types';
+import styles from './datagrid.module.scss';
 
 const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
 
@@ -86,8 +85,8 @@ export default function DataGridModel(props: dataGridProps) {
     };
 
     const handleDeleteClick = (id: GridRowId) => () => {
-        api.delete(`/veiculo/deletar/${id}`,{
-            headers:{
+        api.delete(`/veiculo/deletar/${id}`, {
+            headers: {
                 authorization: token
             }
         })
@@ -163,44 +162,44 @@ export default function DataGridModel(props: dataGridProps) {
                             type: 'actions',
                             headerName: 'Actions',
                             cellClassName: 'actions',
-                            getActions: ({ id }:any) => {
-                              const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-                      
-                              if (isInEditMode) {
+                            getActions: ({ id }: any) => {
+                                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+                                if (isInEditMode) {
+                                    return [
+                                        <GridActionsCellItem
+                                            icon={<SaveIcon />}
+                                            label="Save"
+                                            onClick={handleSaveClick(id)}
+                                        />,
+                                        <GridActionsCellItem
+                                            icon={<CancelIcon />}
+                                            label="Cancel"
+                                            className="textPrimary"
+                                            onClick={handleCancelClick(id)}
+                                            color="inherit"
+                                        />,
+                                    ];
+                                }
+
                                 return [
-                                  <GridActionsCellItem
-                                    icon={<SaveIcon />}
-                                    label="Save"
-                                    onClick={handleSaveClick(id)}
-                                  />,
-                                  <GridActionsCellItem
-                                    icon={<CancelIcon />}
-                                    label="Cancel"
-                                    className="textPrimary"
-                                    onClick={handleCancelClick(id)}
-                                    color="inherit"
-                                  />,
+                                    <GridActionsCellItem
+                                        icon={<EditIcon />}
+                                        label="Edit"
+                                        className="textPrimary"
+                                        onClick={handleEditClick(id)}
+                                        color="inherit"
+                                    />,
+                                    <GridActionsCellItem
+                                        icon={<DeleteIcon />}
+                                        label="Delete"
+                                        onClick={handleDeleteClick(id)}
+                                        color="inherit"
+                                    />,
                                 ];
-                              }
-                      
-                              return [
-                                <GridActionsCellItem
-                                  icon={<EditIcon />}
-                                  label="Edit"
-                                  className="textPrimary"
-                                  onClick={handleEditClick(id)}
-                                  color="inherit"
-                                />,
-                                <GridActionsCellItem
-                                  icon={<DeleteIcon />}
-                                  label="Delete"
-                                  onClick={handleDeleteClick(id)}
-                                  color="inherit"
-                                />,
-                              ];
                             },
-                          }
-                    ]} 
+                        }
+                    ]}
                 />
             }
         </Box>

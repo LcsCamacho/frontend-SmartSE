@@ -10,7 +10,7 @@ const initialState: userState = {
     cpf: '',
     senha: '',
     login: false,
-    token:''
+    token: ''
 }
 
 export const loginSlice = createSlice({

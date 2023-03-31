@@ -1,0 +1,620 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2023-03-28T16:31:54.563Z",
+    "__export_source": "insomnia.desktop.app:v2023.1.0",
+    "resources": [
+        {
+            "_id": "req_8533ceec9e35435ab1e9a63e318627dd",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679707900276,
+            "created": 1679707842910,
+            "url": "http://localhost:3000/usuario/atualizar/1",
+            "name": "Atualizar",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"cpf\":\"123.456.789-07\",\n\t\"senha\":\"123432\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707842910,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_d548d10c16854d9998063d3fe045e11e",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679706820921,
+            "created": 1679706820921,
+            "name": "Usuario",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1679706820921,
+            "_type": "request_group"
+        },
+        {
+            "_id": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "parentId": null,
+            "modified": 1679706813442,
+            "created": 1679706813442,
+            "name": "Abastecimento",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_0876a1617f764a739daea4c1b04617ed",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679708001372,
+            "created": 1679707918479,
+            "url": "http://localhost:3000/usuario/deletar/1",
+            "name": "Deletar",
+            "description": "",
+            "method": "DELETE",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707333363.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_a48d35a1efaf44219453983efa6b82fe",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679938045652,
+            "created": 1679706823817,
+            "url": "http://localhost:3001/usuario/cadastrar",
+            "name": "Cadastrar",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"cpf\":\"123.456.789-07\",\n\t\"senha\":\"123456\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823817,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_8476a7db28d54b72928c4047f51aa5fe",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679707785974,
+            "created": 1679707672014,
+            "url": "http://localhost:3000/usuario/buscar",
+            "name": "Buscar",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"cpf\": \"123.456.789-07\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823792,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_9ed1068651744f47bb87e8273e8b5496",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679939300120,
+            "created": 1679707801017,
+            "url": "http://localhost:3001/login",
+            "name": "Login",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"cpf\": \"123.456.789-07\",\n\t\"senha\": \"123456\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823779.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_4f5a0d98b28c42fa9fb7185bd315cba2",
+            "parentId": "fld_d548d10c16854d9998063d3fe045e11e",
+            "modified": 1679938002547,
+            "created": 1679707299284,
+            "url": "http://localhost:3001/usuario/listar",
+            "name": "Listar",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1679706823767,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_a09e8866a69f47dca1c239183df0c958",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679708155714,
+            "created": 1679707954512,
+            "url": "http://localhost:3000/veiculo/atualizar/1",
+            "name": "Atualizar",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707842910,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679707954468,
+            "created": 1679707954468,
+            "name": "Veiculo",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1678491377024.5,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_0784249e04464028b7b3a5dc9e20e937",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679707994742,
+            "created": 1679707954521,
+            "url": "http://localhost:3000/veiculo/deletar/1",
+            "name": "Deletar",
+            "description": "",
+            "method": "DELETE",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707333363.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_5c238cc92c904f538212ba41e40fa35a",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679941099908,
+            "created": 1679707954474,
+            "url": "http://localhost:3001/veiculo/inserir",
+            "name": "Inserir",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"placa\": \"abc-666\",\n\t\"marca\": \"marca\",\n\t\"modelo\": \"modelo\",\n\t\"ano\": \"ano\",\n\t\"cor\": \"cor\",\n\t\"potencia\": \"300\",\n\t\"renavam\": \"666\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823817,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_63d2d97a6da44730b148356f291ad9df",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679708471364,
+            "created": 1679708054759,
+            "url": "http://localhost:3000/veiculo/buscarPlaca/abc-123",
+            "name": "BuscarPorPlaca",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823788.875,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_aac79ef1ea00440c9f4b8ec794e673a7",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679708124429,
+            "created": 1679708048391,
+            "url": "http://localhost:3000/veiculo/buscarRenavam/123",
+            "name": "BuscarPorRenavam",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823785.75,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_1f40d1a91b1547d4b913879bc939c66d",
+            "parentId": "fld_3fee224089c14f67b52b2a25de9695b0",
+            "modified": 1679937215544,
+            "created": 1679707954484,
+            "url": "http://localhost:3001/veiculo/listar",
+            "name": "Listar",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1679706823767,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_5cee7d2b675d4fbabd29b10bc2a50dfe",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679708758629,
+            "created": 1679708526329,
+            "url": "http://localhost:3000/abastecimento/atualizar/1",
+            "name": "Atualizar",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"valor\": 100,\n\t\"litros\": 10.32,\n\t\"tipo\": \"Gasolina Comum\",\n\t\"placa\": \"abc-123\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707842910,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_95e22102a26548419a2ccf5502beb489",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679708526304,
+            "created": 1679708526304,
+            "name": "Abastecimento",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1677883655076.25,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_e9fb81af686e46fea37005a5d47f0d71",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679708556664,
+            "created": 1679708526338,
+            "url": "http://localhost:3000/abastecimento/deletar/1",
+            "name": "Deletar",
+            "description": "",
+            "method": "DELETE",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679707333363.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_933229f58bba45a098ef2970dc95f331",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679941168271,
+            "created": 1679708526310,
+            "url": "http://localhost:3001/abastecimento/inserir",
+            "name": "Inserir",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"valor\": 100,\n\t\"litros\":20.32,\n\t\"tipo\": \"Gasolina Comum\",\n\t\"placa\": \"abc-222\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823817,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2aaa30e41c41415181bf0c2529524076",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679708623692,
+            "created": 1679708526358,
+            "url": "http://localhost:3000/abastecimento/buscarPlaca/abc-123",
+            "name": "BuscarPorPlaca",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823788.875,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_b9961a47c9a44aeea38a6f5807505fa7",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679708740253,
+            "created": 1679708526349,
+            "url": "http://localhost:3000/abastecimento/buscarId/1",
+            "name": "BuscarPorId",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1679706823785.75,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_92fa977109874f23b339e1c08ed245f0",
+            "parentId": "fld_95e22102a26548419a2ccf5502beb489",
+            "modified": 1679941197282,
+            "created": 1679708526320,
+            "url": "http://localhost:3001/abastecimento/listar",
+            "name": "Listar",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1679706823767,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_cdade482defef6e09077708e7f7540366fb1e52e",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679706813487,
+            "created": 1679706813487,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1679706813487,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_cdade482defef6e09077708e7f7540366fb1e52e",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679706813493,
+            "created": 1679706813493,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        },
+        {
+            "_id": "spc_593a84e5e0864ec889e30e101d8f2656",
+            "parentId": "wrk_f1ca2b11fff14b0e99f926d8303cc24d",
+            "modified": 1679706813445,
+            "created": 1679706813445,
+            "fileName": "Abastecimento",
+            "contents": "",
+            "contentType": "yaml",
+            "_type": "api_spec"
+        }
+    ]
+}

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     modalLogin: false,
-    modalCadastro:false,
-    modalCadastroVeiculo:false,
+    modalCadastro: false,
+    modalCadastroVeiculo: false,
 }
 
 export const modalSlice = createSlice({
@@ -18,9 +18,9 @@ export const modalSlice = createSlice({
             state.modalCadastro = !state.modalCadastro
         },
         toggleModalCadastroVeiculoReducer: (state) => {
-            state.modalCadastroVeiculo =!state.modalCadastroVeiculo
+            state.modalCadastroVeiculo = !state.modalCadastroVeiculo
         }
-        
+
     },
 
 })

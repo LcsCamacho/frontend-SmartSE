@@ -3,6 +3,7 @@ import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { IMaskInput } from "react-imask";
+import { Veiculo } from "../../../types";
 
     // definitions é responsavel por o mask aceitar apenas o formato da placa
     // # = aceita letras
@@ -31,7 +32,7 @@ const MaskInput = (props: any) => {
 
 export default function InputPlaca() {
     const dispatch = useDispatch();
-    const {veiculo} = useSelector((state: any) => state.veiculo);    
+    const {veiculo}: {veiculo:Veiculo} = useSelector((state: any) => state.veiculo);    
     const {ano, marca, modelo, cor, renavam, potencia} = veiculo
 
     const setPlaca = (e: ChangeEvent<HTMLInputElement>) => {

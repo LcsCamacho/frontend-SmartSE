@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
-import { toggleModalLoginReducer, toggleModalCadastroReducer } from '../../../features/redux/modal-slice';
+import { toggleModalCadastroReducer, toggleModalLoginReducer } from '../../../features/redux/modal-slice';
 import Form from '../../molecules/form-usuario';
 import styles from './modal.module.scss';
 
@@ -9,7 +9,7 @@ export default function ModalUsuarioTemplate({ isOpen, type }: { isOpen: boolean
     const dispatch = useDispatch();
 
     const handleClose = () => {
-        if ( type === 'login' ) {
+        if (type === 'login') {
             dispatch(toggleModalLoginReducer())
         }
         else {

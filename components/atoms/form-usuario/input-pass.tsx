@@ -1,9 +1,9 @@
-import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
+import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import styles from "/components/molecules/form-usuario/form.module.scss";
-import { loginSetPasswordReducer } from "../../../features/redux/login-slice";
-import { cadastroSetPasswordReducer } from "../../../features/redux/cadastro-usuario-slice";
 import { useDispatch } from "react-redux";
+import { cadastroSetPasswordReducer } from "../../../features/redux/cadastro-usuario-slice";
+import { loginSetPasswordReducer } from "../../../features/redux/login-slice";
+import styles from "/components/molecules/form-usuario/form.module.scss";
 
 export default function InputPassword({ type }: { type: string }) {
     const [typePassword, setTypePassword] = useState('password');
