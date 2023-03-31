@@ -20,7 +20,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
-import { emitRefetchVeiculoReducer } from '../../features/redux/refetch-slice';
+import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from '../../features/redux/refetch-slice';
 import { useAxios } from '../../hooks/UseAxios';
 import { Veiculo } from '../../types';
 import styles from './datagrid.module.scss';
@@ -51,8 +51,9 @@ interface dataGridProps {
     rows: Array<any>
     rowsPerPage?: number,
     rowsPerPageOptions?: Array<number>,
-    rowModesModel?: GridRowModesModel
-    filter?: (row: any) => boolean
+    rowModesModel?: GridRowModesModel,
+    filter?: (row: any) => boolean,
+    type: "veiculo" | "abastecimento"
 }
 
 const handleRowEditStart = (
@@ -71,7 +72,7 @@ export default function DataGridModel(props: dataGridProps) {
     const [loading, setLoading] = useState(true);
     const [rowsState, setRowsState] = useState<any>([]);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
-    const { columns, rows } = props;
+    const { columns, rows, type } = props;
     const { api } = useAxios();
     const { token } = useSelector((state: any) => state.login);
     const dispatch = useDispatch();
@@ -85,16 +86,33 @@ export default function DataGridModel(props: dataGridProps) {
     };
 
     const handleDeleteClick = (id: GridRowId) => () => {
-        api.delete(`/veiculo/deletar/${id}`, {
-            headers: {
-                authorization: token
-            }
-        })
-        .then(() => {
-            //dispacha uma action para efetuar o refetch da lista de veiculos
-            dispatch(emitRefetchVeiculoReducer())
-            setRowsState(rows.filter((row) => row.id !== id));
-        })
+        if (type === "veiculo") {
+            api.delete(`/veiculo/deletar/${id}`, {
+                headers: {
+                    authorization: token
+                }
+            })
+            .then(() => {
+                //dispacha uma action para efetuar o refetch da lista de veiculos
+                dispatch(emitRefetchVeiculoReducer())
+                setRowsState(rows.filter((row) => row.id !== id));
+            })
+            return
+        }
+        if( type === "abastecimento") {
+            api.delete(`/abastecimento/deletar/${id}`, {
+                headers: {
+                    authorization: token
+                }
+            })
+            .then(() => {
+                //dispacha uma action para efetuar o refetch da lista de abastecimento
+                dispatch(emitRefetchAbastecimentoReducer())
+                setRowsState(rows.filter((row) => row.id !== id));
+            })
+            return
+        }
+
     };
 
     const handleCancelClick = (id: GridRowId) => () => {

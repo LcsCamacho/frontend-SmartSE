@@ -12,8 +12,11 @@ export const refetchSlice = createSlice({
         emitRefetchVeiculoReducer: (state) => {
             state.emitRefetchVeiculo = !state.emitRefetchVeiculo
         },
+        emitRefetchAbastecimentoReducer: (state) => {
+            state.emitRefetchAbastecimento = !state.emitRefetchAbastecimento
+        }
     },
 })
 
-export const { emitRefetchVeiculoReducer } = refetchSlice.actions
+export const { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } = refetchSlice.actions
 export const refetchReducer = refetchSlice.reducer

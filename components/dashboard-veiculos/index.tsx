@@ -35,7 +35,7 @@ export default function DashboardVeiculos() {
 
     return (
         <Container className={styles.containerVeiculos}>
-            <DataGridModel editModel="row" rows={veiculos} columns={columns} />
+            <DataGridModel type="veiculo" editModel="row" rows={veiculos} columns={columns} />
         </Container>
     )
 }
