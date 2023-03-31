@@ -33,3 +33,13 @@
     }
   }
 }
+
+@media (min-width: 600px) {
+  .main {
+    .container {
+      width: 75%;
+      max-width: 1200px;
+    }
+  }
+}
+  

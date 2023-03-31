@@ -90,7 +90,11 @@ export default function DataGridModel(props: dataGridProps) {
                 authorization: token
             }
         })
-        setRowsState(rows.filter((row) => row.id !== id));
+        .then(() => {
+            //dispacha uma action para efetuar o refetch da lista de veiculos
+            dispatch(emitRefetchVeiculoReducer())
+            setRowsState(rows.filter((row) => row.id !== id));
+        })
     };
 
     const handleCancelClick = (id: GridRowId) => () => {
@@ -108,6 +112,7 @@ export default function DataGridModel(props: dataGridProps) {
         const result = veiculoSchema.safeParse(newRow)
         const updatedRow = { ...newRow, isNew: false };
         if (result.success) {
+            //dispacha uma action para efetuar o refetch da lista de veiculos
             dispatch(emitRefetchVeiculoReducer())
             setRowsState(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
             api.put(`/veiculo/atualizar/${newRow.id}`, newRow, {
@@ -116,6 +121,7 @@ export default function DataGridModel(props: dataGridProps) {
                 }
             })
         }
+        //se escrever os dados incorretamente, cancela a edição e emite a action de refetch
         else {
             alert("Digite os dados corretamente")
             dispatch(emitRefetchVeiculoReducer())
@@ -130,9 +136,7 @@ export default function DataGridModel(props: dataGridProps) {
 
     useEffect(() => {
         setRowsState(rows)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
+        setLoading(false)
     }, [rows])
 
     return (
