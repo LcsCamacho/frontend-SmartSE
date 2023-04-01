@@ -1,16 +1,15 @@
-import { Container } from '@mui/material'
-import styles from './dashboard.module.scss'
-import { useAxios } from '../../hooks/UseAxios'
-import { useMemo, useState } from 'react';
+import { Abastecimento } from '../../types';
+import { Container } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import DataGridModel from '../data-grid-model';
-import { Abastecimento } from '../../types'
+import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useAxios } from '../../hooks/UseAxios';
+import DataGridModel from '../data-grid-model';
+import styles from './dashboard.module.scss';
 
 export default function DashboardAbastecimentos() {
     const [abastecimentos, setAbastecimentos] = useState<Abastecimento[]>([]);
     const { emitRefetchAbastecimento }: { emitRefetchAbastecimento: boolean } = useSelector((state: any) => state.refetch)
-
 
     const { api } = useAxios();
     useMemo(() => {
@@ -24,10 +23,10 @@ export default function DashboardAbastecimentos() {
     const columns: GridColDef[] = useMemo(
         () => ([
             { field: 'id', headerName: 'ID', width: 50 },
-            { field: 'data', headerName: 'Data', editable: true },
-            { field: 'valor', headerName: 'Valor', editable: true },
-            { field: 'litros', headerName: 'Litros', editable: true },
-            { field: 'tipo', headerName: 'Tipo', editable: true },
+            { field: 'data', headerName: 'Data', editable: true, width: 115 },
+            { field: 'valor', headerName: 'Valor', editable: true, width: 75 },
+            { field: 'litros', headerName: 'Litros', editable: true, width: 75 },
+            { field: 'tipo', headerName: 'Tipo', editable: true, width: 160 },
             { field: 'placa', headerName: 'Placa', editable: true },
         ]), []);
 

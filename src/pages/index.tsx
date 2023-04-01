@@ -20,15 +20,18 @@ export default function Home() {
   const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
   const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
   const modalCadastroVeiculo = useSelector((state: any) => state.modal.modalCadastroVeiculo);
+  const modalCadastroAbastecimento = useSelector((state: any) => state.modal.modalCadastroAbastecimento);
   const isMobile = useMediaQuery('(max-width:600px)');
   const dispatch = useDispatch();
-
 
   useMemo(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     }
   }, [isMobile, dispatch]);
+
+  const toggleListaVeiculos = () => setDashboardVeiculos(!dashboardVeiculos)
+  const toggleListaAbastecimentos = () => setDashboardAbastecimentos(!dashboardAbastecimentos)
 
   return (
     <>
@@ -38,9 +41,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
 
+      <main className={styles.main}>
         {isMobile && !showMobileMenu && <HamburguerMenu />}
+
         {showMobileMenu && <Aside />}
 
         <Container className={styles.container}>
@@ -51,7 +55,7 @@ export default function Home() {
           <Divider />
 
           <span className={styles.listar}
-            onClick={() => setDashboardVeiculos(!dashboardVeiculos)}>
+            onClick={toggleListaVeiculos}>
             Listar Veiculos <span>{dashboardVeiculos ? "-" : "+"}</span>
           </span>
 
@@ -60,7 +64,7 @@ export default function Home() {
           <Divider />
 
           <span className={styles.listar}
-            onClick={() => setDashboardAbastecimentos(!dashboardAbastecimentos)}>
+            onClick={toggleListaAbastecimentos}>
             Listar Abastecimentos <span>{dashboardAbastecimentos ? "-" : "+"}</span>
           </span>
 
@@ -72,7 +76,7 @@ export default function Home() {
       <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />
       <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />
       <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo' />
-
+      <ModalCadastro isOpen={modalCadastroAbastecimento} type='cadastroAbastecimento' />
     </>
   )
 }

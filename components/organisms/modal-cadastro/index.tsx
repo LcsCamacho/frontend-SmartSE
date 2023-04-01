@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModalCadastroVeiculoReducer } from '../../../features/redux/modal-slice';
+import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoReducer } from '../../../features/redux/modal-slice';
 import FormCadastros from '../../molecules/form-cadastros';
 import styles from './modal.module.scss';
 
@@ -12,6 +12,10 @@ export default function ModalCadastro({ isOpen, type }: { isOpen: boolean, type:
     const handleClose = () => {
         if (type === 'cadastroVeiculo') {
             dispatch(toggleModalCadastroVeiculoReducer())
+        }
+        if (type === 'cadastroAbastecimento') {
+            dispatch(toggleModalCadastroAbastecimentoReducer())
+
         }
     };
 

@@ -7,8 +7,6 @@ import { Box, Skeleton } from '@mui/material';
 import {
     DataGrid,
     GridActionsCellItem,
-    GridCallbackDetails,
-    GridColDef,
     GridEventListener,
     GridRowId,
     GridRowModel,
@@ -17,55 +15,25 @@ import {
     GridRowParams,
     MuiEvent
 } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { z } from 'zod';
 import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from '../../features/redux/refetch-slice';
 import { useAxios } from '../../hooks/UseAxios';
-import { Veiculo } from '../../types';
+import { dataGridProps, veiculoSchema, abastecimentoSchema } from '../../types';
 import styles from './datagrid.module.scss';
 
-const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
-
-const veiculoSchema = z.object({
-    placa: z.string().regex(PlacaRegex),
-    renavam: z.string().length(11),
-    cor: z.string().max(12),
-    potencia: z.string(),
-    modelo: z.string(),
-    marca: z.string(),
-    ano: z.string().max(4),
-})
-
-interface dataGridProps {
-    columns: Array<GridColDef>,
-    checkboxSelection?: boolean
-    editModel?: "row" | ''
-    onPageChange?: Function,
-    onRowsPerPageChange?: Function
-    onRowModesModelChange?: ((rowModesModel: GridRowModesModel, details: GridCallbackDetails<any>) => void)
-    onRowEditStart?: GridEventListener<any>
-    onRowEditStop?: GridEventListener<any>
-    page?: number,
-    processRowUpdate?: ((newRow: any, oldRow: any) => any)
-    rows: Array<any>
-    rowsPerPage?: number,
-    rowsPerPageOptions?: Array<number>,
-    rowModesModel?: GridRowModesModel,
-    filter?: (row: any) => boolean,
-    type: "veiculo" | "abastecimento"
-}
-
+//função que escuta o inicio do processo de edição das linhas
 const handleRowEditStart = (
     params: GridRowParams,
     event: MuiEvent<React.SyntheticEvent>,
 ) => {
     event.defaultMuiPrevented = true;
 };
+
+//função que escuta a finalização do processo de edição das linhas
 const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
     event.defaultMuiPrevented = true;
 };
-
 
 
 export default function DataGridModel(props: dataGridProps) {
@@ -81,10 +49,13 @@ export default function DataGridModel(props: dataGridProps) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
 
+
+    //função que salva os dados da tabela
     const handleSaveClick = (id: GridRowId) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     };
 
+    //função que deleta uma linha da tabela e do banco de dados
     const handleDeleteClick = (id: GridRowId) => () => {
         if (type === "veiculo") {
             api.delete(`/veiculo/deletar/${id}`, {
@@ -92,29 +63,30 @@ export default function DataGridModel(props: dataGridProps) {
                     authorization: token
                 }
             })
-            .then(() => {
-                //dispacha uma action para efetuar o refetch da lista de veiculos
-                dispatch(emitRefetchVeiculoReducer())
-                setRowsState(rows.filter((row) => row.id !== id));
-            })
+                .then(() => {
+                    //dispacha uma action para efetuar o refetch da lista de veiculos
+                    dispatch(emitRefetchVeiculoReducer())
+                    setRowsState(rows.filter((row) => row.id !== id));
+                })
             return
         }
-        if( type === "abastecimento") {
+        if (type === "abastecimento") {
             api.delete(`/abastecimento/deletar/${id}`, {
                 headers: {
                     authorization: token
                 }
             })
-            .then(() => {
-                //dispacha uma action para efetuar o refetch da lista de abastecimento
-                dispatch(emitRefetchAbastecimentoReducer())
-                setRowsState(rows.filter((row) => row.id !== id));
-            })
+                .then(() => {
+                    //dispacha uma action para efetuar o refetch da lista de abastecimento
+                    dispatch(emitRefetchAbastecimentoReducer())
+                    setRowsState(rows.filter((row) => row.id !== id));
+                })
             return
         }
 
     };
 
+    //escuta o cancelamento da edição de uma linha da tabela
     const handleCancelClick = (id: GridRowId) => () => {
         setRowModesModel({
             ...rowModesModel,
@@ -126,31 +98,93 @@ export default function DataGridModel(props: dataGridProps) {
         }
     };
 
-    const processRowUpdate = (newRow: GridRowModel<Veiculo>) => {
-        const result = veiculoSchema.safeParse(newRow)
+    const updateRow = (
+        newRow: GridRowModel,
+        typeDataGrid: "veiculo" | "abastecimento",
+        schema: any,
+        reducer: any
+    ) => {
+        const result = schema.safeParse(newRow)
         const updatedRow = { ...newRow, isNew: false };
+        const oldRow = rows.find((row) => row.id === newRow.id)
+        //transforma os dados em string para comparar se houve alguma alteração
+        const strOldRow = JSON.stringify(oldRow)
+        const strNewRow = JSON.stringify(newRow)
+        if (strOldRow === strNewRow) {
+            alert("nenhum dado alterado")
+            return updatedRow
+        }
         if (result.success) {
-            //dispacha uma action para efetuar o refetch da lista de veiculos
-            dispatch(emitRefetchVeiculoReducer())
+
+            //dispacha uma action para efetuar o refetch da lista
+            dispatch(reducer())
             setRowsState(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-            api.put(`/veiculo/atualizar/${newRow.id}`, newRow, {
+            api.put(`/${typeDataGrid}/atualizar/${newRow.id}`, newRow, {
                 headers: {
                     authorization: token
                 }
             })
         }
+
         //se escrever os dados incorretamente, cancela a edição e emite a action de refetch
         else {
             alert("Digite os dados corretamente")
-            dispatch(emitRefetchVeiculoReducer())
-            setRowsState(rows.map((row) => row));
+            dispatch(reducer())
+            return updatedRow
         }
         return updatedRow;
+    }
+
+    //função que altera os dados da tabela e do banco de dados 
+    //se os dados forem validados no "veiculoSchema"
+    const processRowUpdate = (newRow: GridRowModel) => {
+        return type === "veiculo" ?
+            updateRow(newRow, "veiculo", veiculoSchema, emitRefetchVeiculoReducer) 
+            :
+            updateRow(newRow, "abastecimento", abastecimentoSchema, emitRefetchAbastecimentoReducer)
     };
+
 
     const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
+
+    const actionsIcons = useCallback(({ id }: any) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+            return [
+                <GridActionsCellItem
+                    icon={<SaveIcon />}
+                    label="Save"
+                    onClick={handleSaveClick(id)}
+                />,
+                <GridActionsCellItem
+                    icon={<CancelIcon />}
+                    label="Cancel"
+                    className="textPrimary"
+                    onClick={handleCancelClick(id)}
+                    color="inherit"
+                />,
+            ];
+        }
+
+        return [
+            <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+            />,
+            <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+            />,
+        ];
+    }, [rowModesModel])
 
     useEffect(() => {
         setRowsState(rows)
@@ -184,42 +218,7 @@ export default function DataGridModel(props: dataGridProps) {
                             type: 'actions',
                             headerName: 'Actions',
                             cellClassName: 'actions',
-                            getActions: ({ id }: any) => {
-                                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-                                if (isInEditMode) {
-                                    return [
-                                        <GridActionsCellItem
-                                            icon={<SaveIcon />}
-                                            label="Save"
-                                            onClick={handleSaveClick(id)}
-                                        />,
-                                        <GridActionsCellItem
-                                            icon={<CancelIcon />}
-                                            label="Cancel"
-                                            className="textPrimary"
-                                            onClick={handleCancelClick(id)}
-                                            color="inherit"
-                                        />,
-                                    ];
-                                }
-
-                                return [
-                                    <GridActionsCellItem
-                                        icon={<EditIcon />}
-                                        label="Edit"
-                                        className="textPrimary"
-                                        onClick={handleEditClick(id)}
-                                        color="inherit"
-                                    />,
-                                    <GridActionsCellItem
-                                        icon={<DeleteIcon />}
-                                        label="Delete"
-                                        onClick={handleDeleteClick(id)}
-                                        color="inherit"
-                                    />,
-                                ];
-                            },
+                            getActions: actionsIcons
                         }
                     ]}
                 />

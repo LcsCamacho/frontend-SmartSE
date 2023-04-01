@@ -45,6 +45,7 @@ export default function Form({ type }: { type: 'login' | 'cadastro' }) {
             })
                 .then(() => {
                     dispatch(toggleModalCadastroReducer());
+                    alert("Usuario cadastrado com sucesso")
                 })
         }
     }

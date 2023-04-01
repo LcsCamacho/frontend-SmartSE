@@ -29,7 +29,7 @@ export default function DashboardVeiculos() {
             { field: 'ano', headerName: 'Ano', editable: true },
             { field: 'cor', headerName: 'Cor', editable: true },
             { field: 'placa', headerName: 'Placa', editable: true },
-            { field: 'renavam', headerName: 'Renavam', editable: true },
+            { field: 'renavam', headerName: 'Renavam', editable: true, width: 125 },
         ]), [])
 
 

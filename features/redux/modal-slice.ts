@@ -5,6 +5,7 @@ const initialState = {
     modalLogin: false,
     modalCadastro: false,
     modalCadastroVeiculo: false,
+    modalCadastroAbastecimento: false
 }
 
 export const modalSlice = createSlice({
@@ -19,11 +20,18 @@ export const modalSlice = createSlice({
         },
         toggleModalCadastroVeiculoReducer: (state) => {
             state.modalCadastroVeiculo = !state.modalCadastroVeiculo
+        },
+        toggleModalCadastroAbastecimentoReducer: (state) => {
+            state.modalCadastroAbastecimento = !state.modalCadastroAbastecimento
         }
-
     },
 
 })
 
-export const { toggleModalLoginReducer, toggleModalCadastroReducer, toggleModalCadastroVeiculoReducer } = modalSlice.actions
+export const { 
+    toggleModalLoginReducer, 
+    toggleModalCadastroReducer, 
+    toggleModalCadastroVeiculoReducer, 
+    toggleModalCadastroAbastecimentoReducer 
+} = modalSlice.actions
 export const modalReducer = modalSlice.reducer

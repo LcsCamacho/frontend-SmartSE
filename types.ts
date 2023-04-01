@@ -1,3 +1,6 @@
+import { GridColDef, GridRowModesModel, GridCallbackDetails, GridEventListener } from '@mui/x-data-grid';
+import { z } from 'zod';
+
 interface MenuAsideItemProps {
     className: string;
 }
@@ -14,12 +17,50 @@ interface Veiculo {
 }
 
 interface Abastecimento {
-    valor: string;
-    litros: string;
+    valor: number;
+    litros: number;
     tipo: string;
     placa: string;
     id?: number
-
 }
 
-export type { MenuAsideItemProps, Veiculo, Abastecimento };
+
+interface dataGridProps {
+    columns: Array<GridColDef>,
+    checkboxSelection?: boolean
+    editModel?: "row" | ''
+    onPageChange?: Function,
+    onRowsPerPageChange?: Function
+    onRowModesModelChange?: ((rowModesModel: GridRowModesModel, details: GridCallbackDetails<any>) => void)
+    onRowEditStart?: GridEventListener<any>
+    onRowEditStop?: GridEventListener<any>
+    page?: number,
+    processRowUpdate?: ((newRow: any, oldRow: any) => any)
+    rows: Array<any>
+    rowsPerPage?: number,
+    rowsPerPageOptions?: Array<number>,
+    rowModesModel?: GridRowModesModel,
+    filter?: (row: any) => boolean,
+    type: "veiculo" | "abastecimento"
+}
+
+const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
+const veiculoSchema = z.object({
+    placa: z.string().regex(PlacaRegex),
+    renavam: z.string().length(11),
+    cor: z.string().max(12),
+    potencia: z.string(),
+    modelo: z.string(),
+    marca: z.string(),
+    ano: z.string().max(4),
+})
+
+const abastecimentoSchema = z.object({
+    valor: z.number(),
+    litros: z.string(),
+    tipo: z.string(),
+    placa: z.string().regex(PlacaRegex),
+})
+
+export { veiculoSchema, abastecimentoSchema }
+export type { MenuAsideItemProps, Veiculo, Abastecimento, dataGridProps };

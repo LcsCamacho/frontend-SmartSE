@@ -1,5 +1,5 @@
 import { FormControl, Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { IMaskInput } from "react-imask";
 import { useDispatch, useSelector } from "react-redux";
 import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
@@ -11,11 +11,12 @@ import { loginSetCpfReducer } from "../../../features/redux/login-slice";
 // x = aceita letrar e numeros
 // - = aceita apenas o traço
 const MaskInput = (props: any) => {
-    const { inputRef, ...other } = props;
+    const { inputRef, value, ...other } = props;
     return (
         <IMaskInput
             {...other}
             ref={inputRef}
+            value={value}
             mask="***.***.***-**"
             placeholder="123.456.789-10"
             definitions={{
@@ -30,19 +31,22 @@ const MaskInput = (props: any) => {
 
 
 export default function InputCPF({ type }: { type: string }) {
-    const cpf = useSelector((state: any) => state.login.cpf)
     const dispatch = useDispatch();
+    const [cpf, setCpfState] = useState<string>("")
 
     const setCpf = (event: ChangeEvent<HTMLInputElement>) => {
+        setCpfState(event.target.value)
+    }
+    
+    useEffect(() => {
         if (type === "login") {
-            dispatch(loginSetCpfReducer(event.target.value));
-            return
+            dispatch(loginSetCpfReducer(cpf));
         }
         if (type === "cadastro") {
-            dispatch(cadastroSetCpfReducer(event.target.value));
-            return
+            dispatch(cadastroSetCpfReducer(cpf));
         }
-    }
+    }, [cpf])
+    
 
     return (
         <FormControl>

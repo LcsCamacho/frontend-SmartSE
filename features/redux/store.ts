@@ -7,6 +7,7 @@ import { mobileMenuReducer } from "./mobile-menu-slice";
 import { modalReducer } from "./modal-slice";
 import { refetchReducer } from './refetch-slice';
 import { storage } from './storage';
+import { abastecimentoReducer } from "./cadastro-abastecimento-slice";
 
 const persistConfig = {
     key: 'root',
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     login: loginReducer,
     cadastro: cadastroReducer,
     veiculo: veiculoReducer,
+    abastecimento: abastecimentoReducer,
     refetch: refetchReducer
 });
 

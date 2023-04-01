@@ -1,20 +1,29 @@
 import { Button } from "@mui/material";
 import { FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { z } from 'zod';
-import { clearFormReducer } from "../../../features/redux/cadastro-veiculo-slice";
-import { toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
-import { emitRefetchVeiculoReducer } from "../../../features/redux/refetch-slice";
+import { clearFormVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
+import { clearFormAbastecimentoReducer } from "../../../features/redux/cadastro-abastecimento-slice";
+import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoReducer } from "../../../features/redux/modal-slice";
+import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from "../../../features/redux/refetch-slice";
 import { useAxios } from '../../../hooks/UseAxios';
-import { Abastecimento, Veiculo } from '../../../types';
+import { Abastecimento, Veiculo, abastecimentoSchema, veiculoSchema } from '../../../types';
+
+import styles from './form.module.scss';
+
+//inputs abastecimento
+import InputLitros from "../../atoms/form-abastecimento/input-litros";
+import InputTipo from "../../atoms/form-abastecimento/input-tipo";
+import InputValor from "../../atoms/form-abastecimento/input-valor";
+import InputPlacaAbastecimento from '../../atoms/form-abastecimento/input-placa';
+
+//inputs veiculo
 import InputAno from '../../atoms/form-veiculo/input-ano';
 import InputCor from '../../atoms/form-veiculo/input-cor';
 import InputMarca from '../../atoms/form-veiculo/input-marca';
 import InputModelo from '../../atoms/form-veiculo/input-modelo';
-import InputPlaca from '../../atoms/form-veiculo/input-placa';
+import InputPlacaVeiculo from '../../atoms/form-veiculo/input-placa';
 import InputPotencia from '../../atoms/form-veiculo/input-potencia';
 import InputRenavam from '../../atoms/form-veiculo/input-renavam';
-import styles from './form.module.scss';
 
 //interface com as funções de cada tipo de formulario
 interface formType {
@@ -22,38 +31,24 @@ interface formType {
     cadastroAbastecimento: (abastecimento: Abastecimento) => void
 }
 
-//regex: abc-1234 ou abc-1a34
-const PlacaRegex = new RegExp('[a-zA-Z]{3}[-][0-9][a-z0-9A-Z][0-9]{2}')
-
-//validar informaçoes obtidas dos inputs
-const schema = z.object({
-    placa: z.string().regex(PlacaRegex),
-    renavam: z.string().length(11),
-    cor: z.string().max(12),
-    potencia: z.string(),
-    modelo: z.string(),
-    marca: z.string(),
-    ano: z.string().max(4),
-})
-
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
+    const dispatch = useDispatch();
     const { token }: { token: string } = useSelector((state: any) => state.login);
     const { api } = useAxios();
-    const dispatch = useDispatch();
     const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
-    // const { abastecimento } = useSelector((state: any) => state.abastecimento);
-
+    const { abastecimento } = useSelector((state: any) => state.abastecimento);
+    const options = {
+        headers: {
+            authorization: token
+        }
+    }
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
-            api.post("/veiculo/inserir", veiculo, {
-                headers: {
-                    authorization: token
-                }
-            })
+            api.post("/veiculo/inserir", veiculo, options)
                 .then(() => {
                     dispatch(toggleModalCadastroVeiculoReducer())
-                    dispatch(clearFormReducer())
+                    dispatch(clearFormVeiculoReducer())
                     dispatch(emitRefetchVeiculoReducer())
                 })
                 .catch((err) => {
@@ -61,40 +56,69 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
                 })
         },
         cadastroAbastecimento: (abastecimento: Abastecimento) => {
-            api.post("/abastecimento/inserir", abastecimento)
+            api.post("/abastecimento/inserir", abastecimento, options)
+                .then(() => {
+                    dispatch(toggleModalCadastroAbastecimentoReducer())
+                    dispatch(clearFormAbastecimentoReducer())
+                    dispatch(emitRefetchAbastecimentoReducer())
+                })
+                .catch((err) => {
+                    console.log({err})
+                    alert("Erro ao inserir abastecimento, confira os dados")
+                })
         }
     }
-
+    
+        // Função que trata os dados do input e faz a requisição em caso
+        // de os dados estarem corretos
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (type === "cadastroVeiculo") {
-            //se o schema for valido, executa a 
-            //funçao do tipo de formulario correspondente
-            schema.safeParse(veiculo).success ?
+            veiculoSchema.safeParse(veiculo).success ?
                 actions[type](veiculo) :
                 alert("Dados inválidos")
+                return
         }
-        // else {
-        //     const result = schema.safeParse(abastecimento)
-        // }
+        if (type === "cadastroAbastecimento") {
+            console.log(abastecimento)
+            // abastecimentoSchema.safeParse(abastecimento).success ?
+            //     actions[type](abastecimento) :
+            //     alert("Dados inválidos")
+            return
+        }
+    }
 
+    const CadastroVeiculoInputs = () => {
+        return (
+            <>
+                <InputPotencia />
+                <InputPlacaVeiculo />
+                <InputCor />
+                <InputRenavam />
+                <InputModelo />
+                <InputMarca />
+                <InputAno />
+            </>
+        )
+    }
 
+    const CadastroAbastecimentoInputs = () => {
+        return (
+            <>
+                <InputLitros />
+                <InputValor />
+                <InputTipo />
+                <InputPlacaAbastecimento />
+            </>
+        )
     }
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            {type === "cadastroVeiculo" && (
-                <>
-                    <InputPotencia />
-                    <InputPlaca />
-                    <InputCor />
-                    <InputRenavam />
-                    <InputModelo />
-                    <InputMarca />
-                    <InputAno />
-                </>
-            )}
+            {type === "cadastroVeiculo" && <CadastroVeiculoInputs />}
 
+            {type === "cadastroAbastecimento" && <CadastroAbastecimentoInputs />}
+            
             <Button
                 type="submit"
                 variant="contained"
