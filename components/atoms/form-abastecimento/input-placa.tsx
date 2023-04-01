@@ -1,5 +1,5 @@
 import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IMaskInput } from "react-imask";
 import { Abastecimento } from "../../../types";
@@ -30,23 +30,28 @@ const MaskInput = (props: any) => {
     );
 };
 
+    //adicionar um select com as placas dos veiculos cadastrados
 export default function InputPlaca() {
+    const [placaState, setPlacaState] = useState('');
     const dispatch = useDispatch();
     const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
         (state:any) => state.abastecimento
     )
-    const { placa, litros, tipo } = abastecimento
+    const { valor, litros, tipo } = abastecimento
 
     const setPlaca = (e: ChangeEvent<HTMLInputElement>) => {
+        setPlacaState(e.target.value)
+    }
+    
+    useEffect(()=>{
         let data = {
-            valor: e.target.value,
-            placa,
+            valor,
+            placa: placaState,
             litros,
             tipo
         }
         dispatch(setAbastecimentoReducer(data))
-    }
-    
+    },[placaState])
 
     return (
         <FormControl>

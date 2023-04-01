@@ -1,27 +1,33 @@
-import { FormControl, FormHelperText, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
-import { ChangeEvent, useEffect } from "react";
+import { FormControl, FormHelperText, InputAdornment, TextField } from "@mui/material";
+import { ChangeEvent, useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo } from "../../../types";
 
 
 export default function InputPotencia() {
+    const [potenciaState, setPotenciaState] = useState('')
     const dispatch = useDispatch();
     const {veiculo}: {veiculo:Veiculo} = useSelector((state: any) => state.veiculo);    
     const {ano, marca, modelo, cor, renavam, placa} = veiculo
 
     const setPotencia = (e: ChangeEvent<HTMLInputElement>) => {
+        setPotenciaState(e.target.value)
+    }
+
+    useEffect(() => {
         let data = {
             ano,
             marca,
             modelo,
             cor,
             renavam,
-            potencia: e.target.value,
+            potencia: potenciaState,
             placa,
         }
         dispatch(setVeiculoReducer(data))
-    }
+    }, [potenciaState])
     
 
     return (

@@ -1,12 +1,13 @@
 import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo } from "../../../types";
 
 export default function InputAno() {
     const dispatch = useDispatch();
-    const [anoState, setAnoState] = new useState<number>()
+    const [anoState, setAnoState] = useState('');
     const {veiculo}: {veiculo:Veiculo} = useSelector((state: any) => state.veiculo);    
     const { marca, renavam, cor, potencia, placa, modelo } = veiculo
 
@@ -14,7 +15,7 @@ export default function InputAno() {
         setAnoState(state => e.target.value)
     }
 
-    new useEffect(()=> {
+    useEffect(()=> {
         let data = {
             ano: anoState,
             marca,

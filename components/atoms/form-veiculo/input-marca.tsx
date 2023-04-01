@@ -1,19 +1,24 @@
 import { FormControl, FormHelperText, TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { Veiculo } from "../../../types";
 
 
 export default function InputMarca() {
+    const [marcaState, setMarcaState] = useState('')
     const dispatch = useDispatch();
     const {veiculo}: {veiculo:Veiculo} = useSelector((state: any) => state.veiculo);    
     const {ano, modelo, renavam, cor, potencia, placa} = veiculo
 
     const setMarca = (e: ChangeEvent<HTMLInputElement>) => {
+        setMarcaState(e.target.value)
+    }
+
+    useEffect(() => {
         let data = {
             ano,
-            marca: e.target.value,
+            marca: marcaState,
             modelo,
             cor,
             renavam,
@@ -21,7 +26,7 @@ export default function InputMarca() {
             placa,
         }
         dispatch(setVeiculoReducer(data))
-    }
+    }, [marcaState])
 
     return (
         <FormControl>

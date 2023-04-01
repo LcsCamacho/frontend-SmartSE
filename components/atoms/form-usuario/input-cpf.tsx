@@ -1,7 +1,7 @@
 import { FormControl, Input, InputLabel } from "@mui/material";
 import { ChangeEvent, useState, useEffect } from "react";
 import { IMaskInput } from "react-imask";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cadastroSetCpfReducer } from "../../../features/redux/cadastro-usuario-slice";
 import { loginSetCpfReducer } from "../../../features/redux/login-slice";
 
@@ -32,7 +32,7 @@ const MaskInput = (props: any) => {
 
 export default function InputCPF({ type }: { type: string }) {
     const dispatch = useDispatch();
-    const [cpf, setCpfState] = useState<string>("")
+    const [cpf, setCpfState] = useState("")
 
     const setCpf = (event: ChangeEvent<HTMLInputElement>) => {
         setCpfState(event.target.value)

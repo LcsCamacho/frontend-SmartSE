@@ -2,24 +2,29 @@ import { FormControl, Select, MenuItem, FormHelperText, SelectChangeEvent, Input
 import { useDispatch, useSelector } from "react-redux";
 import { Abastecimento } from "../../../types";
 import { setAbastecimentoReducer } from "../../../features/redux/cadastro-abastecimento-slice";
+import { useState, useEffect } from "react";
 
 export default function InputTipo() {
-
+    const [tipoState, setTipoState] = useState('');
     const dispatch = useDispatch();
     const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
         (state:any) => state.abastecimento
     )
-    const { placa, litros, tipo } = abastecimento
+    const { valor, placa, litros, tipo } = abastecimento
 
     const handleChange = (e: SelectChangeEvent) => {
+        setTipoState(e.target.value)
+    }
+
+    useEffect(()=>{
         let data = {
-            valor: e.target.value,
+            valor,
             placa,
             litros,
-            tipo
+            tipo: tipoState
         }
         dispatch(setAbastecimentoReducer(data))
-    }
+    },[tipoState])
     
 
     return (

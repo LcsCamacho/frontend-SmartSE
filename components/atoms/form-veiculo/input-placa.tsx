@@ -1,5 +1,5 @@
-import { FormControl, FormHelperText, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
 import { IMaskInput } from "react-imask";
@@ -31,11 +31,16 @@ const MaskInput = (props: any) => {
 };
 
 export default function InputPlaca() {
+    const [placaState, setPlacaState] = useState('');
     const dispatch = useDispatch();
     const {veiculo}: {veiculo:Veiculo} = useSelector((state: any) => state.veiculo);    
     const {ano, marca, modelo, cor, renavam, potencia} = veiculo
 
     const setPlaca = (e: ChangeEvent<HTMLInputElement>) => {
+        setPlacaState(e.target.value)
+    }
+
+    useEffect(() => {
         let data = {
             ano,
             marca,
@@ -43,17 +48,17 @@ export default function InputPlaca() {
             cor,
             renavam,
             potencia,
-            placa: e.target.value
+            placa: placaState
         }
         dispatch(setVeiculoReducer(data))
-    }
+    }, [placaState])
 
     return (
         <FormControl>
             <InputLabel htmlFor="placa">Placa</InputLabel>
             <Input
                 onChange={setPlaca}
-                value={veiculo.placa}
+                value={placaState}
                 inputComponent={MaskInput} />
             <FormHelperText>Informe a Placa do carro</FormHelperText>
         </FormControl>
