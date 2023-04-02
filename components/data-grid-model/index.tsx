@@ -138,12 +138,10 @@ export default function DataGridModel(props: dataGridProps) {
     //função que altera os dados da tabela e do banco de dados 
     //se os dados forem validados no "veiculoSchema"
     const processRowUpdate = (newRow: GridRowModel) => {
-        if(type === "veiculo"){
-            return updateRow(newRow, type, veiculoSchema, emitRefetchVeiculoReducer) 
-        }
-        if(type === "abastecimento"){
-           return updateRow(newRow, type, abastecimentoSchema, emitRefetchAbastecimentoReducer)
-        }
+        return type === "veiculo" ?
+            updateRow(newRow, type, veiculoSchema, emitRefetchVeiculoReducer) 
+            :
+            updateRow(newRow, type, abastecimentoSchema, emitRefetchAbastecimentoReducer)
     };
 
 
