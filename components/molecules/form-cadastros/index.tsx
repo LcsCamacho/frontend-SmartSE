@@ -49,13 +49,14 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     const { token }: { token: string } = useSelector((state: any) => state.login);
     // const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
     // const { abastecimento } = useSelector((state: any) => state.abastecimento);
-    const { tipo } = useSelector((state:any) => state.abastecimento);
-    console.log({tipo})
+    const { tipo } = useSelector((state: any) => state.abastecimento);
+
     const options = {
         headers: {
             authorization: token
         }
     }
+
     //objeto com as funções de cada tipo de formulario
     const actions: formType = {
         cadastroVeiculo: (veiculo: Veiculo) => {
@@ -77,45 +78,79 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
                     dispatch(toggleModalCadastroAbastecimentoReducer())
                     dispatch(emitRefetchAbastecimentoReducer())
                     dispatch(toggleAlertAbastecimentoCadastroSuccess())
-
                 })
                 .catch((err) => {
                     alert("Erro ao inserir abastecimento, confira os dados")
                 })
         }
     }
-    
-        // Função que trata os dados do input e faz a requisição em caso
-        // de os dados estarem corretos
+    // exemplo de retorno de como função getItemsLocalStorage funciona
+    // let arr = ["ano", "cor", "marca", "modelo", "placa", "potencia", "renavam"]
+    // o codigo abaixo faz a mesma coisa que veiculo = getItemsLocalStorage(arr)
+    // const veiculo:Veiculo = {
+    //     ano: localStorage.getItem("ano") || '' ,
+    //     cor: localStorage.getItem("cor") || '',
+    //     marca: localStorage.getItem("marca") || '',
+    //     modelo: localStorage.getItem("modelo") || '',
+    //     placa: localStorage.getItem("placa") || '',
+    //     potencia: localStorage.getItem("potencia") || '',
+    //     renavam: localStorage.getItem("renavam") || '',
+    // }
+    const getItemsLocalStorage = (array: Array<string>) => {
+        //converte o array em um array de objetos coletados do localStorage
+        const items = array.map((item: string) => {
+            return {
+                [item]: localStorage.getItem(item)
+            }
+        })
+
+        //converte o array de objetos em um objeto unico
+        const objetoUnico: any = items.reduce((obj: any, item: any) => {
+            return {
+                ...obj,
+                ...item
+            };
+        }, {});
+
+        return objetoUnico
+    }
+
+    const calculaValorOuLitro = () => {
+        if(tipo === "Litro") {
+            const litro = Number(localStorage.getItem("litros"))
+            localStorage.setItem("valor", String(litro * 5))
+        }
+        if(tipo === "Valor") {
+            const valor = Number(localStorage.getItem("valor"))
+            localStorage.setItem("litros", String(valor / 5))
+        }
+    }
+
+
+    // Função que trata os dados do input e faz a requisição em caso
+    // de os dados estarem corretos
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        calculaValorOuLitro()
         if (type === "cadastroVeiculo") {
-            const veiculo:Veiculo = {
-                ano: localStorage.getItem("ano") || '' ,
-                cor: localStorage.getItem("cor") || '',
-                marca: localStorage.getItem("marca") || '',
-                modelo: localStorage.getItem("modelo") || '',
-                placa: localStorage.getItem("placa") || '',
-                potencia: localStorage.getItem("potencia") || '',
-                renavam: localStorage.getItem("renavam") || '',
-            }
-            veiculoSchema.safeParse(veiculo).success ?
-                actions[type](veiculo) :
-                alert("Dados inválidos")
+            const arr = ["ano", "cor", "marca", "modelo", "placa", "potencia", "renavam"]
+            const veiculo: Veiculo = getItemsLocalStorage(arr)
+            const result = veiculoSchema.safeParse(veiculo)
+            if(result.success) {
+                actions[type](veiculo) 
                 return
+            }
+            alert("Dados inválidos")
         }
         if (type === "cadastroAbastecimento") {
-            const abastecimento: Abastecimento = {
-                litros: localStorage.getItem("litros") || '',
-                valor: localStorage.getItem("valor") || '',
-                tipo: localStorage.getItem("tipo") || '',
-                placa: localStorage.getItem("placa") || '',
+            const arr = ["litros", "valor", "tipo", "placa"]
+            const abastecimento: Abastecimento = getItemsLocalStorage(arr)
+            const result = abastecimentoSchema.safeParse(abastecimento)
+            if(result.success) {
+                actions[type](abastecimento)
+                return
             }
-            console.log(abastecimento)
-            abastecimentoSchema.safeParse(abastecimento).success ?
-                actions[type](abastecimento) :
-                alert("Dados inválidos")
-            return
+            alert("Dados inválidos")
         }
     }
 
@@ -137,8 +172,8 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
         return (
             <>
                 <InputValorOuLitro />
-                {true && <InputLitros />}
-                {true && <InputValor />}
+                {tipo === "Valor" && <InputValor />}
+                {tipo === "Litro" && <InputLitros />}
                 <InputTipo />
                 <InputPlacaAbastecimento />
             </>
@@ -150,7 +185,7 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
             {type === "cadastroVeiculo" && <CadastroVeiculoInputs />}
 
             {type === "cadastroAbastecimento" && <CadastroAbastecimentoInputs />}
-            
+
             <Button
                 type="submit"
                 variant="contained"

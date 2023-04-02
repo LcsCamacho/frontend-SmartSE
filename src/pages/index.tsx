@@ -2,7 +2,7 @@ import styles from '@/styles/Home.module.scss';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Container, Divider, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertDialog from '../../components/confirmacoes/AlertDialog';
 import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
@@ -12,7 +12,12 @@ import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
 import ModalCadastro from '../../components/organisms/modal-cadastro';
 import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
-import { toggleAlertVeiculoCadastroSuccess } from '../../features/redux/alert-slice';
+import { 
+  toggleAlertVeiculoCadastroSuccess,
+  toggleAlertAbastecimentoCadastroSuccess,
+  toggleAlertAbastecimentoRemoveSuccess,
+  toggleAlertVeiculoRemoveSuccess 
+} from '../../features/redux/alert-slice';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 
 export default function Home() {
@@ -28,7 +33,7 @@ export default function Home() {
   const modalCadastroAbastecimento = useSelector((state: any) => state.modal.modalCadastroAbastecimento);
   const showAlertCadastroVeiculoSuccess = useSelector((state:any) => state.alert.alertVeiculoCadastroSuccess)
   const showAlertAbastecimentoCadastroSuccess = useSelector((state:any) => state.alert.alertAbastecimentoCadastroSuccess)
-  const showAlertAbastecimentoRemoveSuccess = useSelector((state:any) => state.alert.alertAbastimentoRemoveSuccess)
+  const showAlertAbastecimentoRemoveSuccess = useSelector((state:any) => state.alert.alertAbastecimentoRemoveSuccess)
   const showAlertVeiculoRemoveSuccess = useSelector((state:any) => state.alert.alertVeiculoRemoveSuccess)
   
   //useMediaQuery do MUI Design
@@ -38,21 +43,46 @@ export default function Home() {
   const dispatch = useDispatch();
 
   //useMemo para abrir o menu mobile
-  useMemo(() => {
+  useEffect(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     }
   }, [isMobile, dispatch]);
 
+  //funcao para remover o alert da dom ~~temporario
+  const timeoutForRemoveAlert = (reducer: Function, time: number = 5000) => {
+    const timeout:NodeJS.Timeout = setTimeout(()=> {
+      dispatch(reducer())
+    }, time)
+
+    return timeout
+  }
+
   //necessario para remover o alert da DOM ~~temporario
   useEffect(() => {
-    if(showAlertCadastroVeiculoSuccess) {
-      const timeout:NodeJS.Timeout = setTimeout(()=> {
-        dispatch(toggleAlertVeiculoCadastroSuccess())
-      }, 5000)
+
+    if(showAlertVeiculoRemoveSuccess) {
+      const timeout = timeoutForRemoveAlert(toggleAlertVeiculoRemoveSuccess);
       return () => clearTimeout(timeout)
     }
-  }, [showAlertCadastroVeiculoSuccess])
+    if(showAlertCadastroVeiculoSuccess) {
+      const timeout = timeoutForRemoveAlert(toggleAlertVeiculoCadastroSuccess);
+      return () => clearTimeout(timeout)
+    }
+    if(showAlertAbastecimentoCadastroSuccess) {
+      const timeout = timeoutForRemoveAlert(toggleAlertAbastecimentoCadastroSuccess);
+      return () => clearTimeout(timeout)
+    }
+    if(showAlertAbastecimentoRemoveSuccess) {
+      const timeout = timeoutForRemoveAlert(toggleAlertAbastecimentoRemoveSuccess);
+      return () => clearTimeout(timeout)
+    }
+  }, [
+    showAlertCadastroVeiculoSuccess, 
+    showAlertVeiculoRemoveSuccess, 
+    showAlertAbastecimentoCadastroSuccess, 
+    showAlertAbastecimentoRemoveSuccess,
+  ])
 
   const toggleListaVeiculos = () => setDashboardVeiculos(!dashboardVeiculos)
   const toggleListaAbastecimentos = () => setDashboardAbastecimentos(!dashboardAbastecimentos)

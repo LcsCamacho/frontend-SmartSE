@@ -5,15 +5,14 @@ import { setAbastecimentoReducer, setTipoValorOuLitroReducer } from "../../../fe
 import { useState, useEffect } from "react";
 
 export default function InputValorOuLitro() {
-    const [tipoState, setTipoState] = useState('Valor');
     const dispatch = useDispatch();
+    const { tipo } = useSelector((state:any) => state.abastecimento)
     // const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
     //     (state:any) => state.abastecimento
     // )
 
     const handleChange = (e: SelectChangeEvent) => {
         dispatch(setTipoValorOuLitroReducer(e.target.value))
-        setTipoState(e.target.value)
     }
 
     return (
@@ -23,7 +22,7 @@ export default function InputValorOuLitro() {
                 label="tipo"
                 autoWidth
                 onChange={handleChange}
-                value={tipoState}
+                value={tipo}
             >
                 <MenuItem value="Valor">Valor</MenuItem>
                 <MenuItem value="Litro">Litro</MenuItem>

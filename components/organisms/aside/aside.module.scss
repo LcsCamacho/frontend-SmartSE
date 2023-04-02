@@ -6,10 +6,12 @@
     height: 100vh;
     width: max-content;
     gap: 1rem;
+    border-radius: 5px;
     background: #f6f6f6;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: .75rem;
     animation: Appearing .4s ease-in-out forwards;
+
 
     .closeContainer {
         position: relative;

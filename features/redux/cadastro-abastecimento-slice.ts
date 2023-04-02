@@ -13,7 +13,7 @@ const initialState: initialStateType = {
         tipo: '',
         placa: '',
     },
-    tipo: 'Valor'
+    tipo: 'Litro'
     
 }
 
@@ -22,13 +22,11 @@ export const abastecimentoSlice = createSlice({
     initialState,
     reducers: {
         setAbastecimentoReducer: (state, action) => {
-            const { valor, litros, tipo, placa } = action.payload
-            state.abastecimento = {
-                valor, 
-                litros, 
-                tipo, 
-                placa
-            }
+            const {type, data}: {
+                type:"valor"|"litros"|"tipo"|"placa", 
+                data: any
+            } = action.payload
+            state.abastecimento[type] = data
         },
         clearFormAbastecimentoReducer: (state) => {
             state.abastecimento = initialState.abastecimento

@@ -1,7 +1,6 @@
 import { FormControl, FormHelperText, Select, MenuItem, SelectChangeEvent, InputLabel } from "@mui/material";
-import { ChangeEvent, useState, useEffect, forwardRef, useRef, useCallback } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IMaskInput } from "react-imask";
 import { Abastecimento, Veiculo } from "../../../types";
 import { setAbastecimentoReducer } from "../../../features/redux/cadastro-abastecimento-slice";
 import { useAxios } from "../../../hooks/UseAxios";
@@ -9,7 +8,7 @@ import { useAxios } from "../../../hooks/UseAxios";
 //adicionar um select com as placas dos veiculos cadastrados
 export default function InputPlaca() {
     const [placaState, setPlacaState] = useState<string[]>([]);
-    const [currentPlaca, setCurrentPlaca] = useState('');
+    const [currentPlaca, setCurrentPlaca] = useState<string>('');
     // const dispatch = useDispatch();
     // const { abastecimento }: { abastecimento: Abastecimento } = useSelector(
     //     (state: any) => state.abastecimento
@@ -22,15 +21,17 @@ export default function InputPlaca() {
                 const placas = response.data.map((veiculo: Veiculo) => (
                     veiculo.placa
                 ))
-                setPlacaState(state => placas)
+                setPlacaState(placas)
             })
             .catch((error) => {
                 console.log(error)
             })
     },[])
-
+    
     useEffect(() => {
-        setCurrentPlaca(placaState[0])
+        if(placaState.length > 0) {
+            setCurrentPlaca(placaState[0])
+        }
     }, [placaState])
 
     const handleChange = (e: SelectChangeEvent) => {

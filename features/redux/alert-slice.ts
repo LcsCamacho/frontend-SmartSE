@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     alertVeiculoCadastroSuccess: false,
-    alertAbastimentoCadastroSuccess: false,
-    alertAbastimentoRemoveSuccess: false,
+    alertAbastecimentoCadastroSuccess: false,
+    alertAbastecimentoRemoveSuccess: false,
     alertVeiculoRemoveSuccess: false
 }
 
@@ -16,10 +16,10 @@ export const alertSlice = createSlice({
             state.alertVeiculoCadastroSuccess = !state.alertVeiculoCadastroSuccess
         },
         toggleAlertAbastecimentoCadastroSuccess: (state) => {
-            state.alertAbastimentoCadastroSuccess = !state.alertAbastimentoCadastroSuccess
+            state.alertAbastecimentoCadastroSuccess = !state.alertAbastecimentoCadastroSuccess
         },
         toggleAlertAbastecimentoRemoveSuccess: (state) => { 
-            state.alertAbastimentoRemoveSuccess = !state.alertAbastimentoRemoveSuccess
+            state.alertAbastecimentoRemoveSuccess = !state.alertAbastecimentoRemoveSuccess
         },
         toggleAlertVeiculoRemoveSuccess: (state) => {
             state.alertVeiculoRemoveSuccess = !state.alertVeiculoRemoveSuccess

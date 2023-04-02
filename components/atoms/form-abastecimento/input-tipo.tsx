@@ -11,6 +11,10 @@ export default function InputTipo() {
     //     (state:any) => state.abastecimento
     // )
 
+    useEffect(()=> {
+        localStorage.setItem('tipo', "Gasolina Comum")
+    }, [])
+
     const handleChange = (e: SelectChangeEvent) => {
         localStorage.setItem('tipo', e.target.value)
         setTipoState(e.target.value)

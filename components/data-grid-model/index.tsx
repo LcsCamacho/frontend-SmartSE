@@ -43,7 +43,7 @@ export default function DataGridModel(props: dataGridProps) {
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
     const { columns, rows, type } = props;
     const { api } = useAxios();
-    const { token } = useSelector((state: any) => state.login);
+    const { token, login } = useSelector((state: any) => state.login);
     const dispatch = useDispatch();
 
     const handleEditClick = (id: GridRowId) => () => {
@@ -217,7 +217,7 @@ export default function DataGridModel(props: dataGridProps) {
                     processRowUpdate={processRowUpdate}
                     autoHeight
                     rows={rowsState}
-                    columns={[
+                    columns={login ? [
                         ...columns,
                         {
                             field: 'actions',
@@ -226,7 +226,7 @@ export default function DataGridModel(props: dataGridProps) {
                             cellClassName: 'actions',
                             getActions: actionsIcons
                         }
-                    ]}
+                    ] : columns}
                 />
             }
         </Box>
