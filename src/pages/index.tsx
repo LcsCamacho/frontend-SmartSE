@@ -21,18 +21,15 @@ export default function Home() {
   const [dashboardAbastecimentos, setDashboardAbastecimentos] = useState(false);
 
   //seletores do redux
-  
-  const { 
-    modalLoginIsOpen, 
-    modalCadastroIsOpen, 
-    showMobileMenu, 
-    modalCadastroVeiculo,
-    modalCadastroAbastecimento,
-    showAlertCadastroVeiculoSuccess,
-    showAlertAbastecimentoCadastroSuccess,
-    showAlertAbastimentoRemoveSuccess
-  } = useSelector((state: any) => state)
-
+  const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
+  const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
+  const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
+  const modalCadastroVeiculo = useSelector((state: any) => state.modal.modalCadastroVeiculo);
+  const modalCadastroAbastecimento = useSelector((state: any) => state.modal.modalCadastroAbastecimento);
+  const showAlertCadastroVeiculoSuccess = useSelector((state:any) => state.alert.alertVeiculoCadastroSuccess)
+  const showAlertAbastecimentoCadastroSuccess = useSelector((state:any) => state.alert.alertAbastecimentoCadastroSuccess)
+  const showAlertAbastecimentoRemoveSuccess = useSelector((state:any) => state.alert.alertAbastimentoRemoveSuccess)
+  const showAlertVeiculoRemoveSuccess = useSelector((state:any) => state.alert.alertVeiculoRemoveSuccess)
   //useMediaQuery do MUI Design
   const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -112,8 +109,15 @@ export default function Home() {
       )}
 
       {/* Alerta de sucesso ao remover abastecimento */}
-      {showAlertAbastimentoRemoveSuccess && (
+      {showAlertAbastecimentoRemoveSuccess && (
         <AlertDialog text={"Abastecimento removido com sucesso!"} color={"warning"} speed={5}>
+          <CheckCircleOutlineIcon />
+        </AlertDialog>
+      )}
+
+      {/* Alerta de sucesso ao remover veiculo */}
+      {showAlertVeiculoRemoveSuccess && (
+        <AlertDialog text={"Veiculo removido com sucesso!"} color={"warning"} speed={5}>
           <CheckCircleOutlineIcon />
         </AlertDialog>
       )}

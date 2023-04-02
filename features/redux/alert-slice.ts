@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     alertVeiculoCadastroSuccess: false,
     alertAbastimentoCadastroSuccess: false,
-    alertAbastimentoRemoveSuccess: false
+    alertAbastimentoRemoveSuccess: false,
+    alertVeiculoRemoveSuccess: false
 }
 
 export const alertSlice = createSlice({
@@ -19,6 +20,9 @@ export const alertSlice = createSlice({
         },
         toggleAlertAbastecimentoRemoveSuccess: (state) => { 
             state.alertAbastimentoRemoveSuccess = !state.alertAbastimentoRemoveSuccess
+        },
+        toggleAlertVeiculoRemoveSuccess: (state) => {
+            state.alertVeiculoRemoveSuccess = !state.alertVeiculoRemoveSuccess
         }
     },
 
@@ -27,6 +31,7 @@ export const alertSlice = createSlice({
 export const { 
     toggleAlertVeiculoCadastroSuccess, 
     toggleAlertAbastecimentoCadastroSuccess,
-    toggleAlertAbastecimentoRemoveSuccess
+    toggleAlertAbastecimentoRemoveSuccess,
+    toggleAlertVeiculoRemoveSuccess
 } = alertSlice.actions
 export const alertReducer = alertSlice.reducer
