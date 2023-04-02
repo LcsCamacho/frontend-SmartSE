@@ -111,6 +111,13 @@ export default function Home() {
         </AlertDialog>
       )}
 
+      {/* Alerta de sucesso ao remover abastecimento */}
+      {showAlertAbastimentoRemoveSuccess && (
+        <AlertDialog text={"Abastecimento removido com sucesso!"} color={"warning"} speed={5}>
+          <CheckCircleOutlineIcon />
+        </AlertDialog>
+      )}
+
       {/* Modais */}
       <ModalUsuarioTemplate isOpen={modalLoginIsOpen} type="login" />
       <ModalUsuarioTemplate isOpen={modalCadastroIsOpen} type="cadastro" />
