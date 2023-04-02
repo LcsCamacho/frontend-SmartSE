@@ -11,7 +11,7 @@ Primeiro, insira no seu terminal o seguinte comando:
 
 ` yarn install ou npm install`
 
-Depois
+Depois:
 
 ```bash
 npm run dev
