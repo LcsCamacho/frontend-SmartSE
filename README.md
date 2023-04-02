@@ -1,9 +1,9 @@
 # Projeto Next.js feito para um teste de seleção da empresa Smart-SE
 Funções:
-  Adicionar veículos ao DataGrid-MUI, editar e excluir no proprio DataGrid.
-  Adicionar abastecimento com o relacionamento do veiculo, editar e excluir no próprio DataGrid.
-  Cadastrar usuario, fazer login.
-  Editar e excluir apenas quem esta logado.
+ Adicionar veículos ao DataGrid-MUI, editar e excluir no proprio DataGrid.
+ Adicionar abastecimento com o relacionamento do veiculo, editar e excluir no próprio DataGrid.
+ Cadastrar usuario, fazer login.
+ Editar e excluir apenas quem esta logado.
   
 ## Como começar
 
