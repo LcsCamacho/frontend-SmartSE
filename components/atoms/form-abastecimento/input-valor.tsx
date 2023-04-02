@@ -24,7 +24,6 @@ export default function InputValor() {
             <Input
                 onChange={setValor}
                 type="number"
-                inputProps={{ min: "0", step: "0.50" }}
                 startAdornment={<InputAdornment position="start">R$</InputAdornment>}
             />
             <FormHelperText>Informe o valor do abastecimento</FormHelperText>
