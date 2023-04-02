@@ -2,10 +2,10 @@ import { Button } from "@mui/material";
 import { FormEvent } from 'react';
 
 //imports redux 
-import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from "../../../features/redux/refetch-slice";
-import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoReducer } from "../../../features/redux/modal-slice";
-import { toggleAlertVeiculoCadastroSuccess, toggleAlertAbastecimentoCadastroSuccess } from "../../../features/redux/alert-slice";
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleAlertAbastecimentoCadastroSuccess, toggleAlertVeiculoCadastroSuccess } from "../../../features/redux/alert-slice";
+import { toggleModalCadastroAbastecimentoReducer, toggleModalCadastroVeiculoReducer } from "../../../features/redux/modal-slice";
+import { emitRefetchAbastecimentoReducer, emitRefetchVeiculoReducer } from "../../../features/redux/refetch-slice";
 
 //import types
 import { Abastecimento, Veiculo, abastecimentoSchema, veiculoSchema } from '../../../types';
@@ -18,11 +18,12 @@ import styles from './form.module.scss';
 
 //inputs abastecimento
 import InputLitros from "../../atoms/form-abastecimento/input-litros";
+import InputPlacaAbastecimento from '../../atoms/form-abastecimento/input-placa';
 import InputTipo from "../../atoms/form-abastecimento/input-tipo";
 import InputValor from "../../atoms/form-abastecimento/input-valor";
-import InputPlacaAbastecimento from '../../atoms/form-abastecimento/input-placa';
 
 //inputs veiculo
+import InputValorOuLitro from "../../atoms/form-abastecimento/input-valor-ou-litro";
 import InputAno from '../../atoms/form-veiculo/input-ano';
 import InputCor from '../../atoms/form-veiculo/input-cor';
 import InputMarca from '../../atoms/form-veiculo/input-marca';
@@ -30,7 +31,6 @@ import InputModelo from '../../atoms/form-veiculo/input-modelo';
 import InputPlacaVeiculo from '../../atoms/form-veiculo/input-placa';
 import InputPotencia from '../../atoms/form-veiculo/input-potencia';
 import InputRenavam from '../../atoms/form-veiculo/input-renavam';
-import InputValorOuLitro from "../../atoms/form-abastecimento/input-valor-ou-litro";
 
 //interface com as funções de cada tipo de formulario
 interface formType {
@@ -116,11 +116,11 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     }
 
     const calculaValorOuLitro = () => {
-        if(tipo === "Litro") {
+        if (tipo === "Litro") {
             const litro = Number(localStorage.getItem("litros"))
             localStorage.setItem("valor", String(litro * 5))
         }
-        if(tipo === "Valor") {
+        if (tipo === "Valor") {
             const valor = Number(localStorage.getItem("valor"))
             localStorage.setItem("litros", String(valor / 5))
         }
@@ -136,8 +136,8 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
             const arr = ["ano", "cor", "marca", "modelo", "placa", "potencia", "renavam"]
             const veiculo: Veiculo = getItemsLocalStorage(arr)
             const result = veiculoSchema.safeParse(veiculo)
-            if(result.success) {
-                actions[type](veiculo) 
+            if (result.success) {
+                actions[type](veiculo)
                 return
             }
             alert("Dados inválidos")
@@ -146,7 +146,7 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
             const arr = ["litros", "valor", "tipo", "placa"]
             const abastecimento: Abastecimento = getItemsLocalStorage(arr)
             const result = abastecimentoSchema.safeParse(abastecimento)
-            if(result.success) {
+            if (result.success) {
                 actions[type](abastecimento)
                 return
             }

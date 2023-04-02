@@ -3,7 +3,6 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import styles from './datagrid.module.scss';
 import { Box, Skeleton } from '@mui/material';
 import {
     DataGrid,
@@ -19,9 +18,10 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleAlertAbastecimentoRemoveSuccess, toggleAlertVeiculoRemoveSuccess } from '../../features/redux/alert-slice';
-import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from '../../features/redux/refetch-slice';
+import { emitRefetchAbastecimentoReducer, emitRefetchVeiculoReducer } from '../../features/redux/refetch-slice';
 import { useAxios } from '../../hooks/UseAxios';
-import { dataGridProps, veiculoSchema, abastecimentoSchema } from '../../types';
+import { abastecimentoSchema, dataGridProps, veiculoSchema } from '../../types';
+import styles from './datagrid.module.scss';
 
 //função que escuta o inicio do processo de edição das linhas
 const handleRowEditStart = (
@@ -144,7 +144,7 @@ export default function DataGridModel(props: dataGridProps) {
     //se os dados forem validados no "veiculoSchema"
     const processRowUpdate = (newRow: GridRowModel) => {
         return type === "veiculo" ?
-            updateRow(newRow, type, veiculoSchema, emitRefetchVeiculoReducer) 
+            updateRow(newRow, type, veiculoSchema, emitRefetchVeiculoReducer)
             :
             updateRow(newRow, type, abastecimentoSchema, emitRefetchAbastecimentoReducer)
     };

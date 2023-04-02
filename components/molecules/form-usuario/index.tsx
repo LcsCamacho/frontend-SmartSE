@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { LogarReducer } from "../../../features/redux/login-slice";
 import { toggleModalCadastroReducer, toggleModalLoginReducer } from "../../../features/redux/modal-slice";
 import { useAxios } from "../../../hooks/UseAxios";
-import {InputCpf} from "../../atoms/form-usuario/input-cpf";
+import { InputCpf } from "../../atoms/form-usuario/input-cpf";
 import InputPassword from "../../atoms/form-usuario/input-pass";
 import styles from './form.module.scss';
 

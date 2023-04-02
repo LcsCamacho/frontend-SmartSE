@@ -9,12 +9,14 @@ export default function Aside() {
     const isMobile = useMediaQuery('(max-width:600px)');
     const dispatch = useDispatch();
 
+    const toggleMobileMenu = () => dispatch(toggleMobileMenuReducer())
+
     return (
         <aside className={styles.aside}>
             <Box className={styles.closeContainer}>
-            {isMobile && <span onClick={() => dispatch(toggleMobileMenuReducer())}
-                className={styles.close}>X</span>
-            }
+                {isMobile && <span onClick={toggleMobileMenu}
+                    className={styles.close}>X</span>
+                }
             </Box>
             <Box className={styles.logo}>
                 <Image src={logo} alt="logo"
@@ -27,7 +29,6 @@ export default function Aside() {
             <Divider />
 
             <MenuAside />
-
         </aside>
     )
 }

@@ -20,12 +20,8 @@ export default function ModalCadastro({ isOpen, type }: modalCadastroProps ) {
         }
         if (type === 'cadastroAbastecimento') {
             dispatch(toggleModalCadastroAbastecimentoReducer())
-
         }
     };
-
-
-    /* Cadastro de veículos - CRUD -  com descrição do veículo (placa, renavam, cor, potência, modelo, marca etc); */
 
     return (
         <Modal

@@ -1,5 +1,5 @@
 import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { cadastroSetPasswordReducer } from "../../../features/redux/cadastro-usuario-slice";
 import { loginSetPasswordReducer } from "../../../features/redux/login-slice";

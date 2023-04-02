@@ -1,9 +1,9 @@
-import { Abastecimento } from '../../types';
 import { Container } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { useEffect, useMemo,  useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAxios } from '../../hooks/UseAxios';
+import { Abastecimento } from '../../types';
 import DataGridModel from '../data-grid-model';
 import styles from './dashboard.module.scss';
 
