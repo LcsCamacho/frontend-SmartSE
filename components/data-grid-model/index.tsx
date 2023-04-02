@@ -21,6 +21,7 @@ import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from '../.
 import { useAxios } from '../../hooks/UseAxios';
 import { dataGridProps, veiculoSchema, abastecimentoSchema } from '../../types';
 import styles from './datagrid.module.scss';
+import { toggleAlertAbastecimentoRemoveSuccess } from '../../features/redux/alert-slice';
 
 //função que escuta o inicio do processo de edição das linhas
 const handleRowEditStart = (
@@ -66,6 +67,7 @@ export default function DataGridModel(props: dataGridProps) {
                 .then(() => {
                     //dispacha uma action para efetuar o refetch da lista de veiculos
                     dispatch(emitRefetchVeiculoReducer())
+                    dispatch(emitRefetchAbastecimentoReducer())
                     setRowsState(rows.filter((row) => row.id !== id));
                 })
             return
@@ -79,6 +81,8 @@ export default function DataGridModel(props: dataGridProps) {
                 .then(() => {
                     //dispacha uma action para efetuar o refetch da lista de abastecimento
                     dispatch(emitRefetchAbastecimentoReducer())
+                    dispatch(emitRefetchVeiculoReducer())
+                    dispatch(toggleAlertAbastecimentoRemoveSuccess())
                     setRowsState(rows.filter((row) => row.id !== id));
                 })
             return

@@ -17,7 +17,7 @@ export const alertSlice = createSlice({
         toggleAlertAbastecimentoCadastroSuccess: (state) => {
             state.alertAbastimentoCadastroSuccess = !state.alertAbastimentoCadastroSuccess
         },
-        toggleAlertAbastecimentoRemoveSuccess: (state, action) => { 
+        toggleAlertAbastecimentoRemoveSuccess: (state) => { 
             state.alertAbastimentoRemoveSuccess = !state.alertAbastimentoRemoveSuccess
         }
     },
