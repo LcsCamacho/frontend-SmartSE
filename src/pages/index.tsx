@@ -13,24 +13,48 @@ import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AlertDialog from '../../components/confirmacoes/AlertDialog';
-
+import { toggleAlertVeiculoCadastroSuccess } from '../../features/redux/alert-slice';
 
 export default function Home() {
+  //useStates
   const [dashboardVeiculos, setDashboardVeiculos] = useState(false);
   const [dashboardAbastecimentos, setDashboardAbastecimentos] = useState(false);
-  const modalLoginIsOpen = useSelector((state: any) => state.modal.modalLogin);
-  const modalCadastroIsOpen = useSelector((state: any) => state.modal.modalCadastro);
-  const showMobileMenu = useSelector((state: any) => state.mobileMenu.isOpen);
-  const modalCadastroVeiculo = useSelector((state: any) => state.modal.modalCadastroVeiculo);
-  const modalCadastroAbastecimento = useSelector((state: any) => state.modal.modalCadastroAbastecimento);
+
+  //seletores do redux
+  
+  const { 
+    modalLoginIsOpen, 
+    modalCadastroIsOpen, 
+    showMobileMenu, 
+    modalCadastroVeiculo,
+    modalCadastroAbastecimento,
+    showAlertCadastroVeiculoSuccess,
+    showAlertAbastecimentoCadastroSuccess,
+    showAlertAbastimentoRemoveSuccess
+  } = useSelector((state: any) => state)
+
+  //useMediaQuery do MUI Design
   const isMobile = useMediaQuery('(max-width:600px)');
+
+  //useDispatch do redux
   const dispatch = useDispatch();
 
+  //useMemo para abrir o menu mobile
   useMemo(() => {
     if (!isMobile) {
       dispatch(openMobileMenuReducer())
     }
   }, [isMobile, dispatch]);
+
+  //necessario para remover o alert da DOM ~~temporario
+  useEffect(() => {
+    if(showAlertCadastroVeiculoSuccess) {
+      const timeout:NodeJS.Timeout = setTimeout(()=> {
+        dispatch(toggleAlertVeiculoCadastroSuccess())
+      }, 5000)
+      return () => clearTimeout(timeout)
+    }
+  }, [showAlertCadastroVeiculoSuccess])
 
   const toggleListaVeiculos = () => setDashboardVeiculos(!dashboardVeiculos)
   const toggleListaAbastecimentos = () => setDashboardAbastecimentos(!dashboardAbastecimentos)
@@ -45,42 +69,49 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {isMobile && !showMobileMenu && <HamburguerMenu />}
 
+        {/* Menu Mobile estratégia para responsividade */}
+        {isMobile && !showMobileMenu && <HamburguerMenu />}
         {showMobileMenu && <Aside />}
 
+        {/* container da aplicação */}
         <Container className={styles.container}>
           <Header />
-
           <h1 className={styles.title}>Dashboard Geral</h1>
-
-
-
           <Divider />
 
+          {/* span responsavel por fazer o toggle da lista de veiculos */}
           <span className={styles.listar}
             onClick={toggleListaVeiculos}>
             Listar Veiculos <span>{dashboardVeiculos ? "-" : "+"}</span>
           </span>
-
           {dashboardVeiculos && <DashboardVeiculos />}
-
           <Divider />
 
+          {/* span responsavel por fazer o toggle da lista de abastecimentos */}
           <span className={styles.listar}
             onClick={toggleListaAbastecimentos}>
             Listar Abastecimentos <span>{dashboardAbastecimentos ? "-" : "+"}</span>
           </span>
-
           {dashboardAbastecimentos && <DashboardAbastecimentos />}
         </Container>
-
       </main>
 
-      {<AlertDialog text={"Veiculo inserido com sucesso!"} color={"success"} time={5}>
-        <CheckCircleOutlineIcon />
-      </AlertDialog>}
+      {/* Alerta de sucesso ao cadastrar veiculo */}
+      {showAlertCadastroVeiculoSuccess && (
+        <AlertDialog text={"Veiculo inserido com sucesso!"} color={"success"} speed={5}>
+          <CheckCircleOutlineIcon />
+        </AlertDialog>
+      )}
 
+      {/* Alerta de sucesso ao cadastrar abastecimento */}
+      {showAlertAbastecimentoCadastroSuccess && (
+        <AlertDialog text={"Abastecimento inserido com sucesso!"} color={"success"} speed={5}>
+          <CheckCircleOutlineIcon />
+        </AlertDialog>
+      )}
+
+      {/* Modais */}
       <ModalUsuarioTemplate isOpen={modalLoginIsOpen} type="login" />
       <ModalUsuarioTemplate isOpen={modalCadastroIsOpen} type="cadastro" />
       <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo' />
