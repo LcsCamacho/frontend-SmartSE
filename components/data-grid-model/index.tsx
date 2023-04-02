@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import styles from './datagrid.module.scss';
 import { Box, Skeleton } from '@mui/material';
 import {
     DataGrid,
@@ -17,11 +18,10 @@ import {
 } from '@mui/x-data-grid';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleAlertAbastecimentoRemoveSuccess, toggleAlertVeiculoRemoveSuccess } from '../../features/redux/alert-slice';
 import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from '../../features/redux/refetch-slice';
 import { useAxios } from '../../hooks/UseAxios';
 import { dataGridProps, veiculoSchema, abastecimentoSchema } from '../../types';
-import styles from './datagrid.module.scss';
-import { toggleAlertAbastecimentoRemoveSuccess } from '../../features/redux/alert-slice';
 
 //função que escuta o inicio do processo de edição das linhas
 const handleRowEditStart = (
@@ -68,6 +68,7 @@ export default function DataGridModel(props: dataGridProps) {
                     //dispacha uma action para efetuar o refetch da lista de veiculos
                     dispatch(emitRefetchVeiculoReducer())
                     dispatch(emitRefetchAbastecimentoReducer())
+                    dispatch(toggleAlertVeiculoRemoveSuccess())
                     setRowsState(rows.filter((row) => row.id !== id));
                 })
             return
