@@ -30,6 +30,7 @@ import InputModelo from '../../atoms/form-veiculo/input-modelo';
 import InputPlacaVeiculo from '../../atoms/form-veiculo/input-placa';
 import InputPotencia from '../../atoms/form-veiculo/input-potencia';
 import InputRenavam from '../../atoms/form-veiculo/input-renavam';
+import InputValorOuLitro from "../../atoms/form-abastecimento/input-valor-ou-litro";
 
 //interface com as funções de cada tipo de formulario
 interface formType {
@@ -48,7 +49,8 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     const { token }: { token: string } = useSelector((state: any) => state.login);
     // const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
     // const { abastecimento } = useSelector((state: any) => state.abastecimento);
-
+    const { tipo } = useSelector((state:any) => state.abastecimento);
+    console.log({tipo})
     const options = {
         headers: {
             authorization: token
@@ -134,8 +136,9 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     const CadastroAbastecimentoInputs = () => {
         return (
             <>
-                <InputLitros />
-                <InputValor />
+                <InputValorOuLitro />
+                {true && <InputLitros />}
+                {true && <InputValor />}
                 <InputTipo />
                 <InputPlacaAbastecimento />
             </>

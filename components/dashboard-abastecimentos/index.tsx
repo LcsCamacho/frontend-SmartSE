@@ -1,7 +1,7 @@
 import { Abastecimento } from '../../types';
 import { Container } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo,  useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAxios } from '../../hooks/UseAxios';
 import DataGridModel from '../data-grid-model';
@@ -12,7 +12,7 @@ export default function DashboardAbastecimentos() {
     const { emitRefetchAbastecimento }: { emitRefetchAbastecimento: boolean } = useSelector((state: any) => state.refetch)
 
     const { api } = useAxios();
-    useMemo(() => {
+    useEffect(() => {
         api.get('/abastecimento/listar')
             .then(({ data }) => {
                 setAbastecimentos(data)

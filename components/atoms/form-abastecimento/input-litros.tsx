@@ -22,7 +22,6 @@ export default function InputLitros() {
             <Input
                 onChange={setLitros}
                 type="number"
-                inputProps={{ min: "0", step: "0.50" }}
                 startAdornment={<InputAdornment position="start">L</InputAdornment>}
             />
             <FormHelperText>Informe a quantidade de litros a ser abastecido no veiculo</FormHelperText>

@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAxios } from '../../hooks/UseAxios';
 import { Veiculo } from "../../types";
@@ -13,7 +13,7 @@ export default function DashboardVeiculos() {
     const { api } = useAxios();
 
 
-    useMemo(() => {
+    useEffect(() => {
         api.get('/veiculo/listar')
             .then(({ data }) => {
                 setVeiculos(data)

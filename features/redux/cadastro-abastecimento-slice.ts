@@ -3,6 +3,8 @@ import { Abastecimento } from "../../types"
 
 interface initialStateType {
     abastecimento: Abastecimento
+    tipo: string
+    
 }
 const initialState: initialStateType = {
     abastecimento: {
@@ -10,7 +12,9 @@ const initialState: initialStateType = {
         litros: 0,
         tipo: '',
         placa: '',
-    }
+    },
+    tipo: 'Valor'
+    
 }
 
 export const abastecimentoSlice = createSlice({
@@ -28,10 +32,13 @@ export const abastecimentoSlice = createSlice({
         },
         clearFormAbastecimentoReducer: (state) => {
             state.abastecimento = initialState.abastecimento
+        },
+        setTipoValorOuLitroReducer: (state, action) => {
+            state.tipo = action.payload
         }
     },
 
 })
 
-export const { setAbastecimentoReducer, clearFormAbastecimentoReducer } = abastecimentoSlice.actions
+export const { setAbastecimentoReducer, clearFormAbastecimentoReducer, setTipoValorOuLitroReducer } = abastecimentoSlice.actions
 export const abastecimentoReducer = abastecimentoSlice.reducer
