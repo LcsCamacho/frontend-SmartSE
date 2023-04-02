@@ -2,23 +2,31 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initialState = {
-    alertVeiculoCadastroSucces: false,
+    alertVeiculoCadastroSuccess: false,
+    alertAbastimentoCadastroSuccess: false,
+    alertAbastimentoRemoveSuccess: false
 }
 
 export const alertSlice = createSlice({
     name: 'alert',
     initialState,
     reducers: {
-        toggleAlertVeiculoCadastroSucces: (state) => {
-            state.alertVeiculoCadastroSucces = !state.alertVeiculoCadastroSucces
+        toggleAlertVeiculoCadastroSuccess: (state) => {
+            state.alertVeiculoCadastroSuccess = !state.alertVeiculoCadastroSuccess
         },
-        
+        toggleAlertAbastecimentoCadastroSuccess: (state) => {
+            state.alertAbastimentoCadastroSuccess = !state.alertAbastimentoCadastroSuccess
+        },
+        toggleAlertAbastecimentoRemoveSuccess: (state, action) => { 
+            state.alertAbastimentoRemoveSuccess = !state.alertAbastimentoRemoveSuccess
+        }
     },
 
 })
 
 export const { 
-    toggleAlertVeiculoCadastroSucces, 
-    
+    toggleAlertVeiculoCadastroSuccess, 
+    toggleAlertAbastecimentoCadastroSuccess,
+    toggleAlertAbastecimentoRemoveSuccess
 } = alertSlice.actions
 export const alertReducer = alertSlice.reducer

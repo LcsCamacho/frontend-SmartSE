@@ -107,6 +107,7 @@ export default function DataGridModel(props: dataGridProps) {
         const result = schema.safeParse(newRow)
         const updatedRow = { ...newRow, isNew: false };
         const oldRow = rows.find((row) => row.id === newRow.id)
+
         //transforma os dados em string para comparar se houve alguma alteração
         const strOldRow = JSON.stringify(oldRow)
         const strNewRow = JSON.stringify(newRow)
@@ -115,7 +116,6 @@ export default function DataGridModel(props: dataGridProps) {
             return updatedRow
         }
         if (result.success) {
-
             //dispacha uma action para efetuar o refetch da lista
             dispatch(reducer())
             setRowsState(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -138,10 +138,12 @@ export default function DataGridModel(props: dataGridProps) {
     //função que altera os dados da tabela e do banco de dados 
     //se os dados forem validados no "veiculoSchema"
     const processRowUpdate = (newRow: GridRowModel) => {
-        return type === "veiculo" ?
-            updateRow(newRow, "veiculo", veiculoSchema, emitRefetchVeiculoReducer) 
-            :
-            updateRow(newRow, "abastecimento", abastecimentoSchema, emitRefetchAbastecimentoReducer)
+        if(type === "veiculo"){
+            return updateRow(newRow, type, veiculoSchema, emitRefetchVeiculoReducer) 
+        }
+        if(type === "abastecimento"){
+           return updateRow(newRow, type, abastecimentoSchema, emitRefetchAbastecimentoReducer)
+        }
     };
 
 
@@ -149,6 +151,7 @@ export default function DataGridModel(props: dataGridProps) {
         setRowModesModel(newRowModesModel);
     };
 
+    //função que retorna os icones de salvar, excluir e editar e cancelar.
     const actionsIcons = useCallback(({ id }: any) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 

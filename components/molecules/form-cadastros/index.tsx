@@ -1,13 +1,19 @@
 import { Button } from "@mui/material";
 import { FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearFormVeiculoReducer } from "../../../features/redux/cadastro-veiculo-slice";
-import { clearFormAbastecimentoReducer } from "../../../features/redux/cadastro-abastecimento-slice";
-import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoReducer } from "../../../features/redux/modal-slice";
+
+//imports redux 
 import { emitRefetchVeiculoReducer, emitRefetchAbastecimentoReducer } from "../../../features/redux/refetch-slice";
-import { useAxios } from '../../../hooks/UseAxios';
+import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoReducer } from "../../../features/redux/modal-slice";
+import { toggleAlertVeiculoCadastroSuccess, toggleAlertAbastecimentoCadastroSuccess } from "../../../features/redux/alert-slice";
+import { useDispatch, useSelector } from 'react-redux';
+
+//import types
 import { Abastecimento, Veiculo, abastecimentoSchema, veiculoSchema } from '../../../types';
 
+//imports hooks 
+import { useAxios } from '../../../hooks/UseAxios';
+
+//import style 
 import styles from './form.module.scss';
 
 //inputs abastecimento
@@ -37,10 +43,12 @@ const clearForm = () => {
 
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
     const dispatch = useDispatch();
-    const { token }: { token: string } = useSelector((state: any) => state.login);
     const { api } = useAxios();
+
+    const { token }: { token: string } = useSelector((state: any) => state.login);
     // const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
     // const { abastecimento } = useSelector((state: any) => state.abastecimento);
+
     const options = {
         headers: {
             authorization: token
@@ -54,6 +62,7 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
                     clearForm()
                     dispatch(toggleModalCadastroVeiculoReducer())
                     dispatch(emitRefetchVeiculoReducer())
+                    dispatch(toggleAlertVeiculoCadastroSuccess())
                 })
                 .catch((err) => {
                     alert("Erro ao inserir veiculo, confira os dados")
@@ -65,6 +74,8 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
                     clearForm()
                     dispatch(toggleModalCadastroAbastecimentoReducer())
                     dispatch(emitRefetchAbastecimentoReducer())
+                    dispatch(toggleAlertAbastecimentoCadastroSuccess())
+
                 })
                 .catch((err) => {
                     alert("Erro ao inserir abastecimento, confira os dados")

@@ -2,7 +2,14 @@ import LinearDeterminate from "./LinearProgressDeterminate";
 import styles from './styles.module.scss'
 import { Container, Box } from '@mui/material';
 
-export default function AlertDialog({ text, time, children, color }: any) {
+interface alertDialogProps {
+    text: string
+    speed: number
+    children?: JSX.Element
+    color: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "inherit"
+}
+
+export default function AlertDialog({ text, speed, children, color }: alertDialogProps) {
 
     return (
         <Container maxWidth="lg"  className={styles.container}>
@@ -12,7 +19,7 @@ export default function AlertDialog({ text, time, children, color }: any) {
                 {children}
             </Box>
             <Box className={styles.progress}>
-                <LinearDeterminate color={color} time={time} />
+                <LinearDeterminate color={color} speed={speed} />
             </Box>
         </Container>
     )

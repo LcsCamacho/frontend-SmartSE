@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 
 interface LinearDeterminateProps {
-  time: number;
+  speed: number;
   color: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "inherit"
 }
 
-export default function LinearDeterminate({ time, color }: LinearDeterminateProps) {
+export default function LinearDeterminate({ speed, color }: LinearDeterminateProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function LinearDeterminate({ time, color }: LinearDeterminateProp
             clearInterval(timer);
             return 100
           }
-          return oldProgress + time;
+          return oldProgress + speed;
         });
 
       }, 100);
@@ -43,7 +43,7 @@ export default function LinearDeterminate({ time, color }: LinearDeterminateProp
     return () => {
       clearTimeout(init);
     }
-  }, [time]);
+  }, [speed]);
 
   return (
     <LinearProgress color={color} variant="determinate" value={progress} />
