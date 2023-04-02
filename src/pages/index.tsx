@@ -1,8 +1,10 @@
 import styles from '@/styles/Home.module.scss';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Container, Divider, useMediaQuery } from '@mui/material';
 import Head from 'next/head';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import AlertDialog from '../../components/confirmacoes/AlertDialog';
 import DashboardAbastecimentos from '../../components/dashboard-abastecimentos';
 import DashboardVeiculos from '../../components/dashboard-veiculos';
 import HamburguerMenu from '../../components/icon-menu-mobile';
@@ -10,10 +12,8 @@ import Aside from '../../components/organisms/aside';
 import Header from '../../components/organisms/header';
 import ModalCadastro from '../../components/organisms/modal-cadastro';
 import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
-import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import AlertDialog from '../../components/confirmacoes/AlertDialog';
 import { toggleAlertVeiculoCadastroSuccess } from '../../features/redux/alert-slice';
+import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
 
 export default function Home() {
   //useStates
@@ -30,6 +30,7 @@ export default function Home() {
   const showAlertAbastecimentoCadastroSuccess = useSelector((state:any) => state.alert.alertAbastecimentoCadastroSuccess)
   const showAlertAbastecimentoRemoveSuccess = useSelector((state:any) => state.alert.alertAbastimentoRemoveSuccess)
   const showAlertVeiculoRemoveSuccess = useSelector((state:any) => state.alert.alertVeiculoRemoveSuccess)
+  
   //useMediaQuery do MUI Design
   const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -97,28 +98,28 @@ export default function Home() {
       {/* Alerta de sucesso ao cadastrar veiculo */}
       {showAlertCadastroVeiculoSuccess && (
         <AlertDialog text={"Veiculo inserido com sucesso!"} color={"success"} speed={5}>
-          <CheckCircleOutlineIcon />
+          <CheckCircleOutlineIcon color={'success'}/>
         </AlertDialog>
       )}
 
       {/* Alerta de sucesso ao cadastrar abastecimento */}
       {showAlertAbastecimentoCadastroSuccess && (
         <AlertDialog text={"Abastecimento inserido com sucesso!"} color={"success"} speed={5}>
-          <CheckCircleOutlineIcon />
+          <CheckCircleOutlineIcon color={'success'}/>
         </AlertDialog>
       )}
 
       {/* Alerta de sucesso ao remover abastecimento */}
       {showAlertAbastecimentoRemoveSuccess && (
         <AlertDialog text={"Abastecimento removido com sucesso!"} color={"warning"} speed={5}>
-          <CheckCircleOutlineIcon />
+          <CheckCircleOutlineIcon color={'warning'}/>
         </AlertDialog>
       )}
 
       {/* Alerta de sucesso ao remover veiculo */}
       {showAlertVeiculoRemoveSuccess && (
         <AlertDialog text={"Veiculo removido com sucesso!"} color={"warning"} speed={5}>
-          <CheckCircleOutlineIcon />
+          <CheckCircleOutlineIcon color={'warning'} />
         </AlertDialog>
       )}
 

@@ -5,7 +5,12 @@ import { toggleModalCadastroVeiculoReducer, toggleModalCadastroAbastecimentoRedu
 import FormCadastros from '../../molecules/form-cadastros';
 import styles from './modal.module.scss';
 
-export default function ModalCadastro({ isOpen, type }: { isOpen: boolean, type: "cadastroVeiculo" | "cadastroAbastecimento" }) {
+interface modalCadastroProps {
+    isOpen: boolean, 
+    type: "cadastroVeiculo" | "cadastroAbastecimento" 
+}
+
+export default function ModalCadastro({ isOpen, type }: modalCadastroProps ) {
     const dispatch = useDispatch();
     const { login } = useSelector((state: any) => state.login)
 

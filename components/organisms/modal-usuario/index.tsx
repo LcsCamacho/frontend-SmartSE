@@ -5,7 +5,12 @@ import { toggleModalCadastroReducer, toggleModalLoginReducer } from '../../../fe
 import Form from '../../molecules/form-usuario';
 import styles from './modal.module.scss';
 
-export default function ModalUsuarioTemplate({ isOpen, type }: { isOpen: boolean, type: "cadastro" | "login" }) {
+interface modalUsuarioProps {
+    isOpen: boolean, 
+    type: "cadastro" | "login" 
+}
+
+export default function ModalUsuarioTemplate({ isOpen, type }: modalUsuarioProps) {
     const dispatch = useDispatch();
 
     const handleClose = () => {
