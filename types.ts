@@ -17,8 +17,8 @@ interface Veiculo {
 }
 
 interface Abastecimento {
-    valor: number;
-    litros: number;
+    valor: number | string;
+    litros: number | string;
     tipo: string;
     placa: string;
     id?: number
@@ -56,8 +56,8 @@ const veiculoSchema = z.object({
 })
 
 const abastecimentoSchema = z.object({
-    valor: z.number(),
-    litros: z.string(),
+    valor: z.union([z.string(), z.number()]),
+    litros: z.union([z.string(), z.number()]),
     tipo: z.string(),
     placa: z.string().regex(PlacaRegex),
 })

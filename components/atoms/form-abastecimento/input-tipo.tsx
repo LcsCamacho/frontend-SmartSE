@@ -5,38 +5,25 @@ import { setAbastecimentoReducer } from "../../../features/redux/cadastro-abaste
 import { useState, useEffect } from "react";
 
 export default function InputTipo() {
-    const [tipoState, setTipoState] = useState('');
-    const dispatch = useDispatch();
-    const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
-        (state:any) => state.abastecimento
-    )
-    const { valor, placa, litros, tipo } = abastecimento
+    const [tipoState, setTipoState] = useState('Gasolina Comum');
+    // const dispatch = useDispatch();
+    // const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
+    //     (state:any) => state.abastecimento
+    // )
 
     const handleChange = (e: SelectChangeEvent) => {
+        localStorage.setItem('tipo', e.target.value)
         setTipoState(e.target.value)
     }
 
-    useEffect(()=>{
-        let data = {
-            valor,
-            placa,
-            litros,
-            tipo: tipoState
-        }
-        dispatch(setAbastecimentoReducer(data))
-    },[tipoState])
-    
-
     return (
         <FormControl>
-            <InputLabel id="tipo">Tipo</InputLabel>
+            <InputLabel>Tipo</InputLabel>
             <Select
-                labelId="select-comum-aditivada"
-                id="tipo"
+                label="tipo"
                 autoWidth
                 onChange={handleChange}
-                value="Gasolina Comum"
-                label="Tipo"
+                value={tipoState}
             >
                 <MenuItem value="Gasolina Comum">Gasolina Comum</MenuItem>
                 <MenuItem value="Gasolina Aditivada">Gasolina Aditivada</MenuItem>

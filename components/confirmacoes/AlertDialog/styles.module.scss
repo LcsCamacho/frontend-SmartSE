@@ -1,0 +1,51 @@
+.container {
+    position: fixed;
+    right: 10%;
+    top: 0;
+    width: 80% !important;
+    box-shadow: 0 0 24px 1px rgb(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex !important;
+    flex-direction: column;
+    gap: .5rem;
+    animation: animacao-sair 1s ease-in-out 0s forwards, animacao-voltar 1s ease-in-out 3s forwards;
+    background: #f6f6f6;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-100%);
+
+    .text {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .progress {
+        width: 100%;
+    }
+}
+
+@keyframes animacao-sair {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(5%);
+    }
+}
+
+@keyframes animacao-voltar {
+    from {
+        opacity: 1;
+        transform: translateY(5%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}

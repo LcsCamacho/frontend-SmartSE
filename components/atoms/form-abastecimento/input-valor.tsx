@@ -6,33 +6,23 @@ import { setAbastecimentoReducer } from "../../../features/redux/cadastro-abaste
 
 
 export default function InputValor() {
-    const [valorState, setValorState] = useState('');
-    const dispatch = useDispatch();
-    const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
-        (state:any) => state.abastecimento
-    )
-    const { placa, litros, tipo } = abastecimento
+    // const [valorState, setValorState] = useState('');
+    // const dispatch = useDispatch();
+    // const { abastecimento }: {abastecimento: Abastecimento} = useSelector(
+    //     (state:any) => state.abastecimento
+    // )
 
     const setValor = (e: ChangeEvent<HTMLInputElement>) => {
-        setValorState(e.target.value)
+        localStorage.setItem("valor", e.target.value)
     }
 
-    useEffect(()=>{
-        let data = {
-            valor: valorState,
-            placa,
-            litros,
-            tipo
-        }
-        dispatch(setAbastecimentoReducer(data))
-    },[valorState])
+  
     
     return (
         <FormControl >
-            <InputLabel htmlFor="valor">Valor</InputLabel>
+            <InputLabel>Valor</InputLabel>
             <Input
                 onChange={setValor}
-                id="valor"
                 type="number"
                 inputProps={{ min: "0", step: "0.50" }}
                 startAdornment={<InputAdornment position="start">R$</InputAdornment>}

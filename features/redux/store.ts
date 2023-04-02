@@ -8,6 +8,7 @@ import { modalReducer } from "./modal-slice";
 import { refetchReducer } from './refetch-slice';
 import { storage } from './storage';
 import { abastecimentoReducer } from "./cadastro-abastecimento-slice";
+import { alertReducer } from "./alert-slice";
 
 const persistConfig = {
     key: 'root',
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     cadastro: cadastroReducer,
     veiculo: veiculoReducer,
     abastecimento: abastecimentoReducer,
-    refetch: refetchReducer
+    refetch: refetchReducer,
+    alert: alertReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -34,6 +36,7 @@ export const makeStore = () => {
             getDefaultMiddleware({
                 serializableCheck: false,
             }),
+            devTools: process.env.NODE_ENV !== 'production',
     });
 };
 

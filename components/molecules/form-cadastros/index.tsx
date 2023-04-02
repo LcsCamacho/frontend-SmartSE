@@ -31,12 +31,16 @@ interface formType {
     cadastroAbastecimento: (abastecimento: Abastecimento) => void
 }
 
+const clearForm = () => {
+    localStorage.clear();
+}
+
 export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cadastroAbastecimento' }) {
     const dispatch = useDispatch();
     const { token }: { token: string } = useSelector((state: any) => state.login);
     const { api } = useAxios();
-    const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
-    const { abastecimento } = useSelector((state: any) => state.abastecimento);
+    // const { veiculo }: { veiculo: Veiculo } = useSelector((state: any) => state.veiculo);
+    // const { abastecimento } = useSelector((state: any) => state.abastecimento);
     const options = {
         headers: {
             authorization: token
@@ -47,8 +51,8 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
         cadastroVeiculo: (veiculo: Veiculo) => {
             api.post("/veiculo/inserir", veiculo, options)
                 .then(() => {
+                    clearForm()
                     dispatch(toggleModalCadastroVeiculoReducer())
-                    dispatch(clearFormVeiculoReducer())
                     dispatch(emitRefetchVeiculoReducer())
                 })
                 .catch((err) => {
@@ -58,12 +62,11 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
         cadastroAbastecimento: (abastecimento: Abastecimento) => {
             api.post("/abastecimento/inserir", abastecimento, options)
                 .then(() => {
+                    clearForm()
                     dispatch(toggleModalCadastroAbastecimentoReducer())
-                    dispatch(clearFormAbastecimentoReducer())
                     dispatch(emitRefetchAbastecimentoReducer())
                 })
                 .catch((err) => {
-                    console.log({err})
                     alert("Erro ao inserir abastecimento, confira os dados")
                 })
         }
@@ -74,16 +77,31 @@ export default function FormCadastros({ type }: { type: 'cadastroVeiculo' | 'cad
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (type === "cadastroVeiculo") {
+            const veiculo:Veiculo = {
+                ano: localStorage.getItem("ano") || '' ,
+                cor: localStorage.getItem("cor") || '',
+                marca: localStorage.getItem("marca") || '',
+                modelo: localStorage.getItem("modelo") || '',
+                placa: localStorage.getItem("placa") || '',
+                potencia: localStorage.getItem("potencia") || '',
+                renavam: localStorage.getItem("renavam") || '',
+            }
             veiculoSchema.safeParse(veiculo).success ?
                 actions[type](veiculo) :
                 alert("Dados inválidos")
                 return
         }
         if (type === "cadastroAbastecimento") {
+            const abastecimento: Abastecimento = {
+                litros: localStorage.getItem("litros") || '',
+                valor: localStorage.getItem("valor") || '',
+                tipo: localStorage.getItem("tipo") || '',
+                placa: localStorage.getItem("placa") || '',
+            }
             console.log(abastecimento)
-            // abastecimentoSchema.safeParse(abastecimento).success ?
-            //     actions[type](abastecimento) :
-            //     alert("Dados inválidos")
+            abastecimentoSchema.safeParse(abastecimento).success ?
+                actions[type](abastecimento) :
+                alert("Dados inválidos")
             return
         }
     }

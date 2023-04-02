@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { LogarReducer } from "../../../features/redux/login-slice";
 import { toggleModalCadastroReducer, toggleModalLoginReducer } from "../../../features/redux/modal-slice";
 import { useAxios } from "../../../hooks/UseAxios";
-import InputCPF from "../../atoms/form-usuario/input-cpf";
+import {InputCpf} from "../../atoms/form-usuario/input-cpf";
 import InputPassword from "../../atoms/form-usuario/input-pass";
 import styles from './form.module.scss';
 
@@ -66,10 +66,11 @@ export default function Form({ type }: { type: 'login' | 'cadastro' }) {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            <InputCPF type={type} />
+            <InputCpf type={type} />
             <InputPassword type={type} />
             <Button type="submit" variant="contained" color="primary">
-                {type === 'login' ? 'Entrar' : 'Cadastrar'}
+                {type === 'login' && 'Entrar'}
+                {type === 'cadastro' && 'Cadastrar'}
             </Button>
         </form>
     )

@@ -11,6 +11,8 @@ import Header from '../../components/organisms/header';
 import ModalCadastro from '../../components/organisms/modal-cadastro';
 import ModalUsuarioTemplate from '../../components/organisms/modal-usuario';
 import { openMobileMenuReducer } from '../../features/redux/mobile-menu-slice';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import AlertDialog from '../../components/confirmacoes/AlertDialog';
 
 
 export default function Home() {
@@ -52,6 +54,8 @@ export default function Home() {
 
           <h1 className={styles.title}>Dashboard Geral</h1>
 
+
+
           <Divider />
 
           <span className={styles.listar}
@@ -73,8 +77,12 @@ export default function Home() {
 
       </main>
 
-      <ModalUsuarioTemplate type="login" isOpen={modalLoginIsOpen} />
-      <ModalUsuarioTemplate type="cadastro" isOpen={modalCadastroIsOpen} />
+      {<AlertDialog text={"Veiculo inserido com sucesso!"} color={"success"} time={5}>
+        <CheckCircleOutlineIcon />
+      </AlertDialog>}
+
+      <ModalUsuarioTemplate isOpen={modalLoginIsOpen} type="login" />
+      <ModalUsuarioTemplate isOpen={modalCadastroIsOpen} type="cadastro" />
       <ModalCadastro isOpen={modalCadastroVeiculo} type='cadastroVeiculo' />
       <ModalCadastro isOpen={modalCadastroAbastecimento} type='cadastroAbastecimento' />
     </>

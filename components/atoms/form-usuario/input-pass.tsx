@@ -6,7 +6,6 @@ import { loginSetPasswordReducer } from "../../../features/redux/login-slice";
 import styles from "/components/molecules/form-usuario/form.module.scss";
 
 export default function InputPassword({ type }: { type: string }) {
-    const [typePassword, setTypePassword] = useState('password');
     const dispatch = useDispatch();
 
     const setPassword = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +20,9 @@ export default function InputPassword({ type }: { type: string }) {
     }
 
     return (
-        <FormControl className={styles.password}>
+        <FormControl required className={styles.password}>
             <InputLabel>Senha</InputLabel>
-            <Input  required type={typePassword} onChange={setPassword} />
+            <Input type='password' onChange={setPassword} />
             <FormHelperText>Mínimo 6 caracteres</FormHelperText>
         </FormControl>
     )
