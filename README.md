@@ -46,3 +46,6 @@ Modelado pelo padrão Atomic Design.
 * Adicionar os veículos e os abastecimentos direto no DataGrid-MUI.
 * Melhorias no layout da página
 * Validação de erro ao editar a placa dos abastecimentos 
+
+## O que eu mais gostei : 
+* Durante o projeto surgiu a necessidade e utilizar o localStorage multiplas vezes para construir um objeto... entao foi feito uma função que recebe as tags que referenciam o conteudo do localStorage e retorna um objeto com o conteudo de todas as tags
