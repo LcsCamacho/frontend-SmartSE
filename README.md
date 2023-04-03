@@ -23,7 +23,7 @@ pnpm dev
 
 Abra [http://localhost:3000](http://localhost:3000) Com seu navegador para ver o resultado.
 
-Você pode começar a editar a página modificando `pages/index.js`. A página é atualizada automaticamente conforme você edita o arquivo.
+Você pode começar a editar a página modificando `pages/index.tsx`. A página é atualizada automaticamente conforme você edita o arquivo.
 
 ## Aprendendo mais
 
